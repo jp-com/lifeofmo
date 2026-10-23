@@ -49,15 +49,15 @@ const faq = [
   ],
   [
     "What’s included in the £20 book?",
-    "An illustrated woodland story, plus spot the difference, hidden objects and colouring activities to enjoy together. The artwork shown is a preview; final book specifications will be shared before pre-orders open.",
+    "An illustrated woodland story, plus spot the difference, hidden objects and colouring activities to enjoy together. The artwork shown is a preview; the final format, dimensions and page count are still to be confirmed.",
   ],
   [
-    "When can I pre-order?",
-    "Pre-orders are not open yet. We’ll confirm the dispatch window before taking orders. Join the launch list to hear when checkout opens; joining does not reserve a copy or take payment.",
+    "When will my pre-order arrive?",
+    "The dispatch date is still to be confirmed. Delivery timing will depend on your destination.",
   ],
   [
     "Where will you deliver?",
-    "Delivery destinations and shipping costs will be confirmed before pre-orders open. The £20 book price excludes delivery.",
+    "Delivery destinations and shipping costs are still to be confirmed. The £20 book price excludes delivery.",
   ],
 ];
 const activities = [
@@ -208,7 +208,7 @@ function Signup({ source, dark = false }: { source: string; dark?: boolean }) {
         <Check size={24} />
         <div>
           <strong>You’re on the list.</strong>
-          <p>We’ll let you know when pre-orders open.</p>
+          <p>We’ll keep you updated with Life of Mo book news.</p>
         </div>
       </div>
     );
@@ -237,7 +237,7 @@ function Signup({ source, dark = false }: { source: string; dark?: boolean }) {
             ? "Joining…"
             : source === "bookseller"
               ? "Join the list"
-              : "Notify me"}
+              : "Keep me updated"}
         </button>
       </div>
       <div className="honey" aria-hidden="true">
@@ -247,9 +247,7 @@ function Signup({ source, dark = false }: { source: string; dark?: boolean }) {
         </label>
       </div>
       <p id={`note-${source}`} className="form-note">
-        {source === "bookseller"
-          ? "For grown-ups. By joining, you agree to receive Life of Mo book news."
-          : "For grown-ups. By joining, you agree to receive pre-order updates."}
+        For grown-ups. By joining, you agree to receive Life of Mo book news.
       </p>
       {status === "error" && (
         <p id={`error-${source}`} className="form-error" role="alert">
@@ -275,10 +273,6 @@ export default function Home() {
     window.addEventListener("keydown", escape);
     return () => window.removeEventListener("keydown", escape);
   }, [menu]);
-  const join = () => {
-    setMenu(false);
-    setModal("launch");
-  };
   const closeMenu = () => setMenu(false);
   return (
     <>
@@ -295,8 +289,8 @@ export default function Home() {
             <a href="#friends">Meet the friends</a>
             <a href="#our-story">Our story</a>
           </nav>
-          <button className="button header-join" onClick={join}>
-            Book updates
+          <button className="button header-join" type="button">
+            Pre-order
           </button>
           <button
             ref={menuButton}
@@ -324,8 +318,8 @@ export default function Home() {
             <a href="#our-story" onClick={closeMenu}>
               Our story
             </a>
-            <button className="button" onClick={join}>
-              Book updates
+            <button className="button" type="button">
+              Pre-order the book
             </button>
           </nav>
         )}
@@ -353,7 +347,6 @@ export default function Home() {
               height="1024"
               fetchPriority="high"
             />
-            <figcaption>Cover preview</figcaption>
           </figure>
           <div className="hero-purchase">
             <p className="book-details">
@@ -362,16 +355,13 @@ export default function Home() {
               <strong>£20</strong>
             </p>
             <div className="hero-actions">
-              <button className="button" onClick={join}>
-                Notify me when pre-orders open
+              <button className="button" type="button">
+                Pre-order the book
               </button>
               <button className="text-link" onClick={() => setModal("sample")}>
                 Look inside <ArrowRight size={17} />
               </button>
             </div>
-            <p className="launch-note">
-              Pre-orders opening soon · Dispatch to be confirmed
-            </p>
           </div>
         </section>
         <section
@@ -412,7 +402,6 @@ export default function Home() {
                   loading="lazy"
                 />
               </button>
-              <figcaption>Story and illustration preview</figcaption>
             </figure>
           </div>
         </section>
@@ -443,9 +432,6 @@ export default function Home() {
                 </article>
               ))}
             </div>
-            <p className="preview-note">
-              Illustrations show the activities; final book pages may vary.
-            </p>
           </div>
         </section>
         <section
@@ -538,8 +524,8 @@ export default function Home() {
             <div>
               <h2 id="launch-title">Begin with Ella’s Night Flight.</h2>
               <p>The first story in the Life of Mo woodland world.</p>
-              <button className="button" onClick={join}>
-                Notify me when pre-orders open
+              <button className="button" type="button">
+                Pre-order the book
               </button>
               <p className="launch-note">£20 · Dispatch date to be confirmed</p>
             </div>
@@ -562,7 +548,7 @@ export default function Home() {
             <p>Small adventures. Big feelings.</p>
           </div>
           <div className="footer-newsletter">
-            <h2>Be first to hear when pre-orders open.</h2>
+            <h2>More stories to come.</h2>
             <Signup source="footer" dark />
           </div>
           <div className="footer-links">
@@ -575,23 +561,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-      {modal === "launch" && (
-        <Modal title="Book launch updates" onClose={() => setModal(null)}>
-          <h2>Be first to hear.</h2>
-          <p>
-            We’ll let you know when <em>Ella’s Night Flight</em> is ready to
-            pre-order.
-          </p>
-          <p>
-            The book will be £20. We’ll confirm dispatch timing and delivery
-            costs before checkout opens.
-          </p>
-          <Signup source="preorder" />
-          <p className="small-note">
-            No payment is taken. Joining the list does not reserve a copy.
-          </p>
-        </Modal>
-      )}
       {modal === "booksellers" && (
         <Modal title="For booksellers" onClose={() => setModal(null)}>
           <h2>For booksellers.</h2>

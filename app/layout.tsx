@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Life of Mo — Ella’s Night Flight",
   description:
-    "Stories that hug back. Discover Ella’s Night Flight, a gentle woodland adventure about courage and friendship for ages 4–8. £20. Pre-orders opening soon.",
+    "Pre-order Ella’s Night Flight for £20. A gentle woodland adventure about courage and friendship for ages 4–8, with three activities to enjoy together.",
   metadataBase: new URL(
     "https://life-of-mo-woodland-stories.abuzzluck129.chatgpt.site",
   ),

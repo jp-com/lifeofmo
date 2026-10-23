@@ -5,15 +5,15 @@ Responsive launch website for Ella’s Night Flight, built with React, Vinext an
 ## Launch state
 
 - Book price: £20 GBP.
-- Pre-orders are opening soon. Dispatch timing and delivery charges are unconfirmed.
-- The “Notify me when pre-orders open” buttons open a launch-signup dialog. No payment is taken and no copy is reserved.
+- The page presents the £20 pre-order offer. Dispatch timing and delivery charges are unconfirmed.
+- Purchase buttons read “Pre-order the book” (or “Pre-order” in the header) and are intentionally static. They do not navigate, submit data or open a dialog. No payment is taken and no copy is reserved.
 - Stripe checkout is deliberately deferred until the owner is ready to build it.
 - Email signups persist in D1. This build does not send emails or connect an email marketing provider.
 - Site access is private to the owner.
 
 ## Content and assets
 
-The website uses the supplied Life of Mo wordmark, character sheets, palette and Lora / Nunito Sans typography. Four new illustrations closely follow the original concept: the book-and-tree hero, open storybook, three activity vignettes and the founder woodland scene. Cover, story and activity imagery are labelled as previews. Fonts are self-hosted, with their licenses included. Replace these preview images with approved production files before opening orders.
+The website uses the supplied Life of Mo wordmark, character sheets, palette and Lora / Nunito Sans typography. Four new illustrations closely follow the original concept: the book-and-tree hero, open storybook, three activity vignettes and the founder woodland scene. The homepage omits cover, story and activity preview captions; asset provenance and the reader retain the illustration status. Fonts are self-hosted, with their licenses included. Replace these preview images with approved production files before opening orders.
 
 `asset-provenance.json` records sources, image-generation prompts and asset status.
 
@@ -56,8 +56,10 @@ The three confirmed activities are Spot the difference, Hidden objects and Colou
 
 ## Focused story and launch copy
 
-The story preview combines Ella’s first step and the reason to share the book, alongside the open spread on the same flat cream background as the rest of the page. The separate emotional-theme strip has been removed. Activities follow directly under “More to enjoy together.” The footer promises a pre-order notification and uses a “Notify me” action. Unconfirmed format, dimensions, page count and production details remain unpublished.
+The story preview combines Ella’s first step and the reason to share the book, alongside the open spread on the same flat cream background as the rest of the page. The separate emotional-theme strip has been removed. Activities follow directly under “More to enjoy together.” The footer offers general Life of Mo book news with “More stories to come” and “Keep me updated”; the newsletter remains a separate secondary form. Unconfirmed format, dimensions, page count and production details remain unpublished.
 
 Page sections use spacing rather than divider rules. Header, story, friends, founder, closing invitation and footer column separators are removed; activity card outlines and FAQ row separators remain functional component details.
 
 The activities and friends headings and introductory text are centred at every screen size, with balanced line wrapping and centred paragraph widths on phones.
+
+The hero availability/dispatch line and the cover, open-spread and activities preview captions are removed. The closing purchase section retains the £20 price and unconfirmed dispatch date.

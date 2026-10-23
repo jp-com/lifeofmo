@@ -277,13 +277,6 @@ input:focus-visible {
     transparent
   );
 }
-.hero-art figcaption {
-  text-align: right;
-  font-size: 11px;
-  padding-right: 24px;
-  margin-top: -8px;
-  color: #796652;
-}
 .hero-purchase {
   grid-area: 2/1;
   align-self: start;
@@ -370,13 +363,6 @@ input:focus-visible {
 .spread-button img {
   mix-blend-mode: darken;
 }
-.story-art figcaption {
-  font-size: 11px;
-  text-align: right;
-  padding-right: 20px;
-  color: #796652;
-  margin-top: -5px;
-}
 .section-intro h2 {
   margin-bottom: 8px;
 }
@@ -433,11 +419,6 @@ input:focus-visible {
   font-size: 16px;
   line-height: 1.5;
   margin: 12px auto 0;
-}
-.activities-section .preview-note {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 12px;
 }
 @media (min-width: 701px) and (max-width: 1023px) {
   .activities-section {
@@ -501,11 +482,6 @@ input:focus-visible {
     line-height: 1.45;
     margin: 8px 0 0;
     max-width: 360px;
-  }
-  .activities-section .preview-note {
-    font-size: 11px;
-    line-height: 1.5;
-    margin-top: 16px;
   }
 }
 @media (max-width: 374px) {
@@ -1021,9 +997,6 @@ input:focus-visible {
     margin-left: 0;
     margin-right: -22px;
   }
-  .hero-art figcaption {
-    font-size: 10px;
-  }
   .hero-purchase {
     margin-top: 18px;
   }
@@ -1256,11 +1229,6 @@ input:focus-visible {
     max-height: 290px;
     object-fit: contain;
   }
-  .hero-art figcaption {
-    font-size: 9px;
-    margin-top: -9px;
-    padding-right: 14px;
-  }
   .hero-purchase {
     grid-area: 3/1;
     margin-top: 16px;
@@ -1325,11 +1293,6 @@ input:focus-visible {
   }
   .story-art {
     margin: 0 -12px;
-  }
-  .story-art figcaption {
-    font-size: 10px;
-    margin-top: 0;
-    padding-right: 12px;
   }
   .section-intro h2 {
     font-size: 29px;
