@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: "Life of Mo — Stories that hug back",
     description:
       "Small adventures. Big feelings. Meet Mo and his friends in Ella’s Night Flight.",
-    images: ["/assets/book-woodland.webp"],
+    images: ["/assets/hero-v2.webp"],
   },
   icons: {
     icon: "/favicon.svg",

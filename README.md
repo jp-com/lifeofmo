@@ -6,16 +6,24 @@ Responsive launch website for Ella’s Night Flight, built with React, Vinext an
 
 - Book price: £20 GBP.
 - Pre-orders are opening soon. Dispatch timing and delivery charges are unconfirmed.
-- Pre-order buttons open a launch-signup dialog. No payment is taken and no copy is reserved.
+- The “Notify me when pre-orders open” buttons open a launch-signup dialog. No payment is taken and no copy is reserved.
 - Stripe checkout is deliberately deferred until the owner is ready to build it.
 - Email signups persist in D1. This build does not send emails or connect an email marketing provider.
 - Site access is private to the owner.
 
 ## Content and assets
 
-The website uses the supplied Life of Mo wordmark, character sheets, palette and Lora / Nunito Sans typography. The new cover mockup and woodland scene are generated concept artwork and are labelled as previews. Activity artwork comes from the supplied website concept. Replace these preview images with approved production files before opening orders.
+The website uses the supplied Life of Mo wordmark, character sheets, palette and Lora / Nunito Sans typography. Four new illustrations closely follow the original concept: the book-and-tree hero, open storybook, three activity spreads and the founder woodland scene. Cover, story and activity imagery are labelled as previews. Fonts are self-hosted, with their licenses included. Replace these preview images with approved production files before opening orders.
 
 `asset-provenance.json` records sources, image-generation prompts and asset status.
+
+## Responsive composition
+
+- Desktop: maximum 1200px container, 40px gutters, 5:7 hero, three activity columns and four character columns.
+- Tablet (701–1023px): 32px gutters and a 468px minimum hero; retain two-column book/story layouts, three activities and four characters. Footer becomes two columns plus a links row.
+- Phone (700px and below): 24px gutters, text/art/action hero sequence, one activity preview with three explicit selection buttons, two character columns and stacked footer. At 374px and below, gutters reduce to 18px.
+- Natural content height, 16px inputs, 44px secondary controls and 48px primary actions; reduced-motion support and native dialog focus containment.
+- Removed decorative icon strips, chips, redundant labels, fake multi-slide samples and the cropped founder portrait.
 
 ## Main files
 
@@ -36,7 +44,7 @@ For a fresh local database, build once and apply pending SQL from `drizzle/` wit
 
 ## Verified
 
-Desktop, tablet and phone layouts were checked from 320px to 1920px, with no horizontal overflow or missing images. The mobile menu, character dialogs, two-excerpt reader and FAQ were exercised. A test signup was confirmed in the local database; duplicate email, invalid email, missing consent, honeypot, malformed JSON and cross-origin request behavior were checked. Test subscriber records are local only.
+Desktop, tablet and phone layouts were checked from 320px to 1920px, with no horizontal overflow or missing images. The mobile menu, character dialogs, single-excerpt reader with selectable text and FAQ were exercised. A test signup was confirmed in the local database; duplicate email, invalid email, missing consent, honeypot, malformed JSON and cross-origin request behavior were checked. Test subscriber records are local only.
 
 ## Before taking orders
 
