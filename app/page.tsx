@@ -5,7 +5,6 @@ import {
   useState,
   type FormEvent,
   type ReactNode,
-  type CSSProperties,
 } from "react";
 import { ArrowRight, Check, Menu, Plus, X } from "lucide-react";
 
@@ -50,7 +49,7 @@ const faq = [
   ],
   [
     "What’s included in the £20 book?",
-    "An illustrated woodland story and three activities to enjoy together. The artwork shown is a preview; final book specifications will be shared before pre-orders open.",
+    "An illustrated woodland story, plus spot the difference, hidden objects and colouring activities to enjoy together. The artwork shown is a preview; final book specifications will be shared before pre-orders open.",
   ],
   [
     "When can I pre-order?",
@@ -63,21 +62,25 @@ const faq = [
 ];
 const activities = [
   {
-    title: "Trace with Mo",
-    text: "Follow the shapes of the woodland.",
-    tab: "Trace",
+    title: "Spot the difference",
+    text: "Find the tiny changes hidden in each scene.",
+    image: "activity-spot",
+    alt: "Mo examines a ladybird through a magnifying glass.",
   },
   {
-    title: "Colour with Ella",
-    text: "Give the woodland your own colours.",
-    tab: "Colour",
+    title: "Hidden objects",
+    text: "Search for little treasures tucked throughout the woodland.",
+    image: "activity-hidden",
+    alt: "Pip discovers a teapot and an acorn among woodland leaves.",
   },
   {
-    title: "Explore with Benny",
-    text: "Find a path through the trees.",
-    tab: "Explore",
+    title: "Colouring",
+    text: "Bring the woodland to life with your own colours.",
+    image: "activity-colouring",
+    alt: "Ella holds a coloured pencil beside a sunflower colouring page.",
   },
 ];
+
 function Brand({ light = false }: { light?: boolean }) {
   return (
     <span className={`brand-mark ${light ? "brand-light" : ""}`}>
@@ -253,7 +256,6 @@ function Signup({ source, dark = false }: { source: string; dark?: boolean }) {
 export default function Home() {
   const [menu, setMenu] = useState(false);
   const [modal, setModal] = useState<string | null>(null);
-  const [activity, setActivity] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
   const selectedFriend = friends.find((f) => modal === f.id);
@@ -428,43 +430,25 @@ export default function Home() {
               <p>Three activities in the book, to enjoy together.</p>
             </div>
             <div className="activities-grid">
-              {activities.map((a, i) => (
-                <article
-                  key={a.title}
-                  className={`activity ${activity === i ? "is-active" : ""}`}
-                  id={`activity-${i}`}
-                >
-                  <div
+              {activities.map((activity) => (
+                <article className="activity" key={activity.title}>
+                  <img
                     className="activity-art"
-                    style={{ "--activity-index": i } as CSSProperties}
-                  >
-                    <img
-                      src="/assets/activities-v2.webp"
-                      alt={`Illustrated activity preview: ${a.title}`}
-                      width="2172"
-                      height="724"
-                      loading="lazy"
-                    />
+                    src={`/assets/${activity.image}.webp`}
+                    alt={activity.alt}
+                    width="1024"
+                    height="1024"
+                    loading="lazy"
+                  />
+                  <div className="activity-copy">
+                    <h3>{activity.title}</h3>
+                    <p>{activity.text}</p>
                   </div>
-                  <h3>{a.title}</h3>
-                  <p>{a.text}</p>
                 </article>
               ))}
             </div>
-            <div className="activity-tabs" aria-label="Choose an activity">
-              {activities.map((a, i) => (
-                <button
-                  key={a.tab}
-                  aria-pressed={activity === i}
-                  aria-controls={`activity-${i}`}
-                  onClick={() => setActivity(i)}
-                >
-                  {a.tab}
-                </button>
-              ))}
-            </div>
             <p className="preview-note">
-              Activity previews. Final pages may vary.
+              Illustrations show the activities; final book pages may vary.
             </p>
           </div>
         </section>

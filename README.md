@@ -13,7 +13,7 @@ Responsive launch website for Ella’s Night Flight, built with React, Vinext an
 
 ## Content and assets
 
-The website uses the supplied Life of Mo wordmark, character sheets, palette and Lora / Nunito Sans typography. Four new illustrations closely follow the original concept: the book-and-tree hero, open storybook, three activity spreads and the founder woodland scene. Cover, story and activity imagery are labelled as previews. Fonts are self-hosted, with their licenses included. Replace these preview images with approved production files before opening orders.
+The website uses the supplied Life of Mo wordmark, character sheets, palette and Lora / Nunito Sans typography. Four new illustrations closely follow the original concept: the book-and-tree hero, open storybook, three activity vignettes and the founder woodland scene. Cover, story and activity imagery are labelled as previews. Fonts are self-hosted, with their licenses included. Replace these preview images with approved production files before opening orders.
 
 `asset-provenance.json` records sources, image-generation prompts and asset status.
 
@@ -21,7 +21,7 @@ The website uses the supplied Life of Mo wordmark, character sheets, palette and
 
 - Desktop: maximum 1200px container, 40px gutters, 5:7 hero, three activity columns and four character columns.
 - Tablet (701–1023px): 32px gutters and a 468px minimum hero; retain two-column book/story layouts, three activities and four characters. Footer becomes two columns plus a links row.
-- Phone (700px and below): 24px gutters, text/art/action hero sequence, one activity preview with three explicit selection buttons, two character columns and stacked footer. At 374px and below, gutters reduce to 18px.
+- Phone (700px and below): 24px gutters, text/art/action hero sequence, three compact illustrated activity rows, two character columns and stacked footer. At 374px and below, gutters reduce to 18px.
 - Natural content height, 16px inputs, 44px secondary controls and 48px primary actions; reduced-motion support and native dialog focus containment.
 - Removed decorative icon strips, chips, redundant labels, fake multi-slide samples and the cropped founder portrait.
 
@@ -49,3 +49,7 @@ Desktop, tablet and phone layouts were checked from 320px to 1920px, with no hor
 ## Before taking orders
 
 Confirm the final cover and interior artwork, physical format, dispatch window, delivery destinations and charges. Add the Stripe checkout flow and reviewed shop policies. Connect an email delivery service when launch messages are ready to send.
+
+## Activity update
+
+The three confirmed activities are Spot the difference, Hidden objects and Colouring. New illustrations follow the supplied desktop/phone references. The section uses three columns above 700px and stacked illustrated rows at 700px and below; all three activities remain visible. No link to a ten-activity collection is included.
