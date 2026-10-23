@@ -208,7 +208,7 @@ function Signup({ source, dark = false }: { source: string; dark?: boolean }) {
         <Check size={24} />
         <div>
           <strong>You’re on the list.</strong>
-          <p>We’ll let you know when the book is ready to order.</p>
+          <p>We’ll let you know when pre-orders open.</p>
         </div>
       </div>
     );
@@ -233,7 +233,11 @@ function Signup({ source, dark = false }: { source: string; dark?: boolean }) {
           disabled={status === "loading"}
           type="submit"
         >
-          {status === "loading" ? "Joining…" : "Join the list"}
+          {status === "loading"
+            ? "Joining…"
+            : source === "bookseller"
+              ? "Join the list"
+              : "Notify me"}
         </button>
       </div>
       <div className="honey" aria-hidden="true">
@@ -243,7 +247,9 @@ function Signup({ source, dark = false }: { source: string; dark?: boolean }) {
         </label>
       </div>
       <p id={`note-${source}`} className="form-note">
-        For grown-ups. By joining, you agree to receive Life of Mo book news.
+        {source === "bookseller"
+          ? "For grown-ups. By joining, you agree to receive Life of Mo book news."
+          : "For grown-ups. By joining, you agree to receive pre-order updates."}
       </p>
       {status === "error" && (
         <p id={`error-${source}`} className="form-error" role="alert">
@@ -380,8 +386,13 @@ export default function Home() {
                 <br /> begins here.
               </h2>
               <p>
-                Ella longs to join her friends beneath the stars. With Mo beside
-                her, she begins with one small step.
+                Ella wants to join her friends beneath the stars, but flying
+                into the dark feels frightening. With Mo beside her, she begins
+                with one small step.
+              </p>
+              <p className="story-benefit">
+                A gentle starting point for conversations about feeling nervous,
+                accepting help and trying something new.
               </p>
               <button className="text-link" onClick={() => setModal("sample")}>
                 Read a story excerpt <ArrowRight size={17} />
@@ -405,28 +416,13 @@ export default function Home() {
             </figure>
           </div>
         </section>
-        <section className="feelings-section" aria-labelledby="feelings-title">
-          <div className="container feelings-inner">
-            <h2 id="feelings-title">
-              Big feelings.
-              <br /> Small steps.
-            </h2>
-            <p>
-              It’s all right to feel nervous. Ella’s story makes room for a
-              friend’s help, another try, and finding your own moment to begin.
-            </p>
-          </div>
-        </section>
         <section
           className="activities-section"
           aria-labelledby="activities-title"
         >
           <div className="container">
             <div className="section-intro">
-              <h2 id="activities-title">
-                The adventure continues
-                <br className="phone-break" /> off the page.
-              </h2>
+              <h2 id="activities-title">More to enjoy together.</h2>
               <p>Three activities in the book, to enjoy together.</p>
             </div>
             <div className="activities-grid">
@@ -566,7 +562,7 @@ export default function Home() {
             <p>Small adventures. Big feelings.</p>
           </div>
           <div className="footer-newsletter">
-            <h2>More stories to come.</h2>
+            <h2>Be first to hear when pre-orders open.</h2>
             <Signup source="footer" dark />
           </div>
           <div className="footer-links">

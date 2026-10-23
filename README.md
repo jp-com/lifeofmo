@@ -53,3 +53,11 @@ Confirm the final cover and interior artwork, physical format, dispatch window, 
 ## Activity update
 
 The three confirmed activities are Spot the difference, Hidden objects and Colouring. New illustrations follow the supplied desktop/phone references. The section uses three columns above 700px and stacked illustrated rows at 700px and below; all three activities remain visible. No link to a ten-activity collection is included.
+
+## Focused story and launch copy
+
+The story preview combines Ella’s first step and the reason to share the book, alongside the open spread on the same flat cream background as the rest of the page. The separate emotional-theme strip has been removed. Activities follow directly under “More to enjoy together.” The footer promises a pre-order notification and uses a “Notify me” action. Unconfirmed format, dimensions, page count and production details remain unpublished.
+
+Page sections use spacing rather than divider rules. Header, story, friends, founder, closing invitation and footer column separators are removed; activity card outlines and FAQ row separators remain functional component details.
+
+The activities and friends headings and introductory text are centred at every screen size, with balanced line wrapping and centred paragraph widths on phones.
