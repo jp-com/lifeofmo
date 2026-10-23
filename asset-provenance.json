@@ -1,0 +1,17 @@
+{
+  "method": "Built-in image_gen tool",
+  "assets": [
+    {
+      "path": "public/assets/book-woodland.webp",
+      "role": "Illustrative cover/product preview",
+      "prompt": "Use case: product-mockup. Create one premium illustrated picture-book product composition for the Life of Mo website, landscape 3:2. Reference images are character identity references: Mo the round little hedgehog with russet scarf, Ella the small owl with very round wire glasses and paint brushes. Preserve their graphite-and-delicate-watercolour identity exactly. A beautiful upright picture book is the centrepiece, shown almost front-facing with a subtly visible cream page edge, occupying 75% of the image height. On its dusty-lavender cover Ella flies above Mo in a twilight woodland with pine trees, a crescent moon and tiny golden fireflies. Typeset exactly this elegant dark brown serif cover title over two lines: 'Ella’s Night Flight'. Small subtitle exactly 'A Life of Mo Story'. No author text. The book rests in a delicate hand-drawn woodland vignette: moss, small stones, a few wildflowers, a slender tree framing the upper right. Leave clean warm cream paper #F8F3E5 around the silhouette, edges of the vignette fading naturally to this paper. Scene surrounds the book but does not obscure its cover or compete with it. Beautiful scratchy graphite quills, delicate watercolour, muted greens, lavender and earthy brown, golden light. Gentle, refined, bookshop-like. No web UI, no additional text, no panels, no watermark. Entire book visible with ample edge clearance."
+    },
+    {
+      "path": "public/assets/first-flight.webp",
+      "role": "Illustrative woodland preview",
+      "prompt": "Use case: illustration-story. Create a beautiful landscape 3:2 storybook illustration for Life of Mo. The two attached sheets are exact character references: Mo the little hedgehog in a russet scarf and Ella the owl wearing very round wire glasses with colourful paint brushes tucked behind her wing. Preserve proportions, faces, graphite line quality, textures and accessories. At twilight in a woodland, Mo stands on a mossy rock at lower left and encourages Ella, who is on a LOW branch at centre right, opening her wings to try a little hop. A lake glimmers behind them, pine trees, warm glowing fireflies, pale crescent moon, dusty lavender and peach sky. An old tree gently frames the upper right. They are warm expressive friends, not afraid or in danger. Luxurious hand-drawn graphite and delicate watercolour on warm cream paper, soft faded edges, abundant intimate detail. Compose with visual breathing room. No letters, no typography, no labels, no borders, no book mockup, no page fold, no watermark. The entire asset is the illustration."
+    }
+  ],
+  "supplied": "The user supplied logo, character sheets, original site concept, colours and typography. CSS frames display selected areas of the supplied images. PNG assets were compressed to WebP without changing their composition. Story excerpts came from the supplied typography sheet.",
+  "status": "Cover, story illustration and activity imagery are previews, not confirmed final print assets."
+}
