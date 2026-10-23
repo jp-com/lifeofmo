@@ -8,6 +8,13 @@
       "when": 1792722894241,
       "tag": "0000_magical_wolf_cub",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1792748189980,
+      "tag": "0001_mute_obadiah_stane",
+      "breakpoints": true
     }
   ]
 }

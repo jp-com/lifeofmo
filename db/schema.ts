@@ -11,3 +11,12 @@ export const subscribers = sqliteTable("subscribers", {
     .notNull()
     .default(sql`CURRENT_TIMESTAMP`),
 });
+
+export const contactMessages = sqliteTable("contact_messages", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  topic: text("topic").notNull(),
+  message: text("message").notNull(),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+});

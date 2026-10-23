@@ -9,25 +9,33 @@ Responsive launch website for Ella’s Night Flight, built with React, Vinext an
 - Purchase buttons read “Pre-order the book” (or “Pre-order” in the header) and are intentionally static. They do not navigate, submit data or open a dialog. No payment is taken and no copy is reserved.
 - Stripe checkout is deliberately deferred until the owner is ready to build it.
 - Email signups persist in D1. This build does not send emails or connect an email marketing provider.
+- The `/contact` page validates enquiries and stores them in D1. It does not forward messages by email; connect an email delivery provider before offering inbox notifications. The visible `hello@lifeofmo.example` address is a non-clickable placeholder, to replace before launch.
 - Site access is private to the owner.
 
 ## Content and assets
 
-The website uses the supplied Life of Mo wordmark, character sheets, palette and Lora / Nunito Sans typography. Four new illustrations closely follow the original concept: the book-and-tree hero, open storybook, three activity vignettes and the founder woodland scene. The homepage omits cover, story and activity preview captions; asset provenance and the reader retain the illustration status. Fonts are self-hosted, with their licenses included. Replace these preview images with approved production files before opening orders.
+The website uses the supplied Life of Mo wordmark, palette, book cover, two interior spreads, activity illustrations and individual Mo, Ella, Benny and Pip portraits. The founder woodland scene follows the original concept. The homepage omits preview captions; asset provenance retains the illustration status. Lora and Nunito Sans are self-hosted, with their licenses included.
+
+The monochrome hedgehog favicon switches from black in light mode to white in dark mode. PNG and ICO fallbacks are included; `scripts/prepare-favicon.mjs` regenerates them from the emblem source.
 
 `asset-provenance.json` records sources, image-generation prompts and asset status.
 
 ## Responsive composition
 
 - Desktop: maximum 1200px container, 40px gutters, 5:7 hero, three activity columns and four character columns.
-- Tablet (701–1023px): 32px gutters and a 468px minimum hero; retain two-column book/story layouts, three activities and four characters. Footer becomes two columns plus a links row.
+- Tablet (701–1023px): 32px gutters and a 468px minimum hero; retain two-column book/story layouts, three activities and two character columns. Footer places the brand and navigation beside the newsletter.
 - Phone (700px and below): 24px gutters, text/art/action hero sequence, three compact illustrated activity rows, two character columns and stacked footer. At 374px and below, gutters reduce to 18px.
-- Natural content height, 16px inputs, 44px secondary controls and 48px primary actions; reduced-motion support and native dialog focus containment.
-- Removed decorative icon strips, chips, redundant labels, fake multi-slide samples and the cropped founder portrait.
+- Natural content height, 16px inputs, 44px secondary controls and 48px primary actions with a 6px corner radius; reduced-motion support and native dialog focus containment.
+- The story preview includes two supplied spreads with dot controls and a three-second rotation. It pauses on hover, keyboard focus or manual selection, and respects reduced-motion preferences.
 
 ## Main files
 
-- `app/page.tsx`: homepage, navigation, reader, characters, FAQ and signup dialogs.
+- `app/page.tsx`: homepage, characters and FAQ.
+- `components/site-chrome.tsx`: shared navigation, footer, newsletter and dialogs.
+- `components/story-spreads.tsx`: two-spread carousel and motion preferences.
+- `app/contact/`: responsive contact page and form.
+- `app/api/contact/route.ts`: validated, idempotent enquiry storage.
+- `lib/contact.ts`: shared enquiry types and validation.
 - `app/globals.css`: visual design and responsive rules.
 - `app/api/subscribe/route.ts`: signup validation and persistence.
 - `db/schema.ts` and `drizzle/`: database schema and migration.
@@ -44,7 +52,7 @@ For a fresh local database, build once and apply pending SQL from `drizzle/` wit
 
 ## Verified
 
-Desktop, tablet and phone layouts were checked from 320px to 1920px, with no horizontal overflow or missing images. The mobile menu, character dialogs, single-excerpt reader with selectable text and FAQ were exercised. A test signup was confirmed in the local database; duplicate email, invalid email, missing consent, honeypot, malformed JSON and cross-origin request behavior were checked. Test subscriber records are local only.
+Desktop, tablet and phone layouts were checked from 320px to 1920px, with no horizontal overflow or missing images. The mobile menu, character dialogs and FAQ were exercised. The former excerpt reader has been removed. A test signup was confirmed in the local database; duplicate email, invalid email, missing consent, honeypot, malformed JSON and cross-origin request behavior were checked. Test subscriber records are local only.
 
 ## Before taking orders
 
@@ -56,10 +64,14 @@ The three confirmed activities are Spot the difference, Hidden objects and Colou
 
 ## Focused story and launch copy
 
-The story preview combines Ella’s first step and the reason to share the book, alongside the open spread on the same flat cream background as the rest of the page. The separate emotional-theme strip has been removed. Activities follow directly under “More to enjoy together.” The footer offers general Life of Mo book news with “More stories to come” and “Keep me updated”; the newsletter remains a separate secondary form. Unconfirmed format, dimensions, page count and production details remain unpublished.
+The hero presents the collector’s edition, £20 price and static pre-order button. The story preview combines Ella’s first step with the spread carousel and product-details accordion on the same flat cream background as the rest of the page. Activities follow under “Inside the book.” with “Three cozy activities to enjoy together.” Unconfirmed format, dimensions, page count and production details remain unpublished.
+
+The footer uses the tagline “Stories that hug back”, grouped Explore and Here to help navigation, a “Keep in touch” newsletter form and a separate copyright/privacy row. The email field retains an accessible label without displaying it above the field.
 
 Page sections use spacing rather than divider rules. Header, story, friends, founder, closing invitation and footer column separators are removed; activity card outlines and FAQ row separators remain functional component details.
 
-The activities and friends headings and introductory text are centred at every screen size, with balanced line wrapping and centred paragraph widths on phones.
+The activities and friends headings and introductory text are centred at every screen size, with balanced line wrapping and centred paragraph widths on phones. Friends sit in softly outlined cream cards, with short muted lavender, gold, moss and warm-brown marks between names and descriptions. Four columns become two below 1024px.
 
-The hero availability/dispatch line and the cover, open-spread and activities preview captions are removed. The closing purchase section retains the £20 price and unconfirmed dispatch date.
+The hero availability/dispatch line and the cover, open-spread and activities preview captions are removed. The closing purchase card repeats the collector’s edition and £20 price above its static pre-order button, with artwork flush to the card’s right edge on desktop. Dispatch information remains in the FAQ.
+
+The story excerpt link, reader modal and hero’s “Look inside” link are removed.

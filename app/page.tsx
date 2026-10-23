@@ -1,12 +1,8 @@
 "use client";
-import {
-  useEffect,
-  useRef,
-  useState,
-  type FormEvent,
-  type ReactNode,
-} from "react";
-import { ArrowRight, Check, Menu, Plus, X } from "lucide-react";
+import { useState } from "react";
+import { Plus } from "lucide-react";
+import { Modal, SiteHeader, SiteFooter } from "../components/site-chrome";
+import { StorySpreads } from "../components/story-spreads";
 
 const friends = [
   {
@@ -64,35 +60,23 @@ const activities = [
   {
     title: "Spot the difference",
     text: "Find the tiny changes hidden in each scene.",
-    image: "activity-spot",
-    alt: "Mo examines a ladybird through a magnifying glass.",
+    image: "activity-spot-detail",
+    alt: "A woodland maze and pencil on a soft lavender circle.",
   },
   {
     title: "Hidden objects",
     text: "Search for little treasures tucked throughout the woodland.",
-    image: "activity-hidden",
-    alt: "Pip discovers a teapot and an acorn among woodland leaves.",
+    image: "activity-hidden-detail-v2",
+    alt: "A woodland puzzle sheet, oak leaf and pencil on a soft lavender circle.",
   },
   {
     title: "Colouring",
     text: "Bring the woodland to life with your own colours.",
-    image: "activity-colouring",
-    alt: "Ella holds a coloured pencil beside a sunflower colouring page.",
+    image: "activity-colouring-detail-v2",
+    alt: "A sunflower colouring page with yellow and lavender pencils.",
   },
 ];
 
-function Brand({ light = false }: { light?: boolean }) {
-  return (
-    <span className={`brand-mark ${light ? "brand-light" : ""}`}>
-      <img
-        src="/assets/wordmark.webp"
-        alt="Life of Mo"
-        width="1254"
-        height="1254"
-      />
-    </span>
-  );
-}
 function Character({
   id,
   pose = "front",
@@ -103,229 +87,30 @@ function Character({
   className?: string;
 }) {
   const friend = friends.find((f) => f.id === id);
+  const portrait = ["mo", "benny", "ella", "pip"].includes(id) && pose === "front";
   return (
     <div
-      className={`character-art character-${id} ${pose === "happy" ? "character-happy" : ""} ${className}`}
+      className={`character-art character-${id} ${portrait ? "character-portrait" : ""} ${pose === "happy" ? "character-happy" : ""} ${className}`}
     >
       <img
-        src={`/assets/${id}-sheet.webp`}
+        src={portrait ? `/assets/${id}-portrait-v2.webp` : `/assets/${id}-sheet.webp`}
         alt={`${friend?.name}, ${friend?.species.toLowerCase()}`}
-        width="1536"
-        height="1024"
+        width={portrait ? 800 : 1536}
+        height={portrait ? 800 : 1024}
         loading="lazy"
       />
     </div>
   );
 }
-function Modal({
-  title,
-  onClose,
-  children,
-  wide = false,
-}: {
-  title: string;
-  onClose: () => void;
-  children: ReactNode;
-  wide?: boolean;
-}) {
-  const ref = useRef<HTMLDialogElement>(null);
-  useEffect(() => {
-    const dialog = ref.current!;
-    const previous = document.activeElement as HTMLElement;
-    dialog.showModal();
-    const before = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      dialog.close();
-      document.body.style.overflow = before;
-      previous?.focus();
-    };
-  }, []);
-  return (
-    <dialog
-      ref={ref}
-      className={`modal ${wide ? "modal-wide" : ""}`}
-      aria-label={title}
-      onCancel={onClose}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          const r = e.currentTarget.getBoundingClientRect();
-          if (
-            e.clientX < r.left ||
-            e.clientX > r.right ||
-            e.clientY < r.top ||
-            e.clientY > r.bottom
-          )
-            onClose();
-        }
-      }}
-    >
-      <button
-        className="icon-button modal-close"
-        aria-label="Close dialog"
-        onClick={onClose}
-      >
-        <X size={22} />
-      </button>
-      {children}
-    </dialog>
-  );
-}
-function Signup({ source, dark = false }: { source: string; dark?: boolean }) {
-  const [status, setStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
-  const [error, setError] = useState("");
-  async function submit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    setStatus("loading");
-    try {
-      const response = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: data.get("email"),
-          source,
-          company: data.get("company"),
-          consent: true,
-        }),
-      });
-      const result = (await response.json()) as { error?: string };
-      if (!response.ok)
-        throw new Error(
-          result.error || "Something went wrong. Please try again.",
-        );
-      setStatus("success");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Please try again.");
-      setStatus("error");
-    }
-  }
-  if (status === "success")
-    return (
-      <div className={`signup-success ${dark ? "on-dark" : ""}`} role="status">
-        <Check size={24} />
-        <div>
-          <strong>You’re on the list.</strong>
-          <p>We’ll keep you updated with Life of Mo book news.</p>
-        </div>
-      </div>
-    );
-  return (
-    <form className={`signup ${dark ? "signup-dark" : ""}`} onSubmit={submit}>
-      <label htmlFor={`email-${source}`}>Your email address</label>
-      <div className="signup-row">
-        <input
-          id={`email-${source}`}
-          name="email"
-          type="email"
-          placeholder="you@example.com"
-          autoComplete="email"
-          required
-          maxLength={254}
-          aria-describedby={
-            status === "error" ? `error-${source}` : `note-${source}`
-          }
-        />
-        <button
-          className="button"
-          disabled={status === "loading"}
-          type="submit"
-        >
-          {status === "loading"
-            ? "Joining…"
-            : source === "bookseller"
-              ? "Join the list"
-              : "Keep me updated"}
-        </button>
-      </div>
-      <div className="honey" aria-hidden="true">
-        <label>
-          Company
-          <input name="company" tabIndex={-1} autoComplete="off" />
-        </label>
-      </div>
-      <p id={`note-${source}`} className="form-note">
-        For grown-ups. By joining, you agree to receive Life of Mo book news.
-      </p>
-      {status === "error" && (
-        <p id={`error-${source}`} className="form-error" role="alert">
-          {error}
-        </p>
-      )}
-    </form>
-  );
-}
 export default function Home() {
-  const [menu, setMenu] = useState(false);
   const [modal, setModal] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const menuButton = useRef<HTMLButtonElement>(null);
-  const selectedFriend = friends.find((f) => modal === f.id);
-  useEffect(() => {
-    const escape = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && menu) {
-        setMenu(false);
-        menuButton.current?.focus();
-      }
-    };
-    window.addEventListener("keydown", escape);
-    return () => window.removeEventListener("keydown", escape);
-  }, [menu]);
-  const closeMenu = () => setMenu(false);
+  const selectedFriend = friends.find((friend) => modal === friend.id);
   return (
     <>
-      <a className="skip-link" href="#main">
-        Skip to content
-      </a>
-      <header className="site-header">
-        <div className="container header-inner">
-          <a href="#" className="brand-link" aria-label="Life of Mo home">
-            <Brand />
-          </a>
-          <nav className="desktop-nav" aria-label="Main navigation">
-            <a href="#the-book">The book</a>
-            <a href="#friends">Meet the friends</a>
-            <a href="#our-story">Our story</a>
-          </nav>
-          <button className="button header-join" type="button">
-            Pre-order
-          </button>
-          <button
-            ref={menuButton}
-            className="icon-button menu-toggle"
-            aria-label={menu ? "Close menu" : "Open menu"}
-            aria-expanded={menu}
-            aria-controls="mobile-nav"
-            onClick={() => setMenu(!menu)}
-          >
-            {menu ? <X size={23} /> : <Menu size={23} />}
-          </button>
-        </div>
-        {menu && (
-          <nav
-            className="mobile-nav"
-            id="mobile-nav"
-            aria-label="Mobile navigation"
-          >
-            <a href="#the-book" onClick={closeMenu}>
-              The book
-            </a>
-            <a href="#friends" onClick={closeMenu}>
-              Meet the friends
-            </a>
-            <a href="#our-story" onClick={closeMenu}>
-              Our story
-            </a>
-            <button className="button" type="button">
-              Pre-order the book
-            </button>
-          </nav>
-        )}
-      </header>
+      <SiteHeader />
       <main id="main">
-        <section className="hero container" aria-labelledby="hero-title">
+        <section className="hero container" id="the-book" aria-labelledby="hero-title">
           <div className="hero-heading">
             <p className="book-label">The first Life of Mo story</p>
             <h1 id="hero-title">
@@ -341,32 +126,26 @@ export default function Home() {
           </div>
           <figure className="hero-art">
             <img
-              src="/assets/hero-v2.webp"
-              alt="Ella’s Night Flight: a lavender storybook with Ella flying above Mo, framed by a woodland tree and wildflowers"
+              src="/assets/hero-collectors-edition-v2.webp"
+              alt="Ella’s Night Flight: Ella perches on a branch beneath the moon on a cream book cover, beside a woodland tree and wildflowers"
               width="1536"
               height="1024"
               fetchPriority="high"
             />
           </figure>
           <div className="hero-purchase">
-            <p className="book-details">
-              <span>Ages 4–8</span>
-              <span>Three activities inside</span>
-              <strong>£20</strong>
-            </p>
+            <p className="product-edition">Collector’s edition</p>
+            <p className="product-price">£20</p>
             <div className="hero-actions">
               <button className="button" type="button">
                 Pre-order the book
-              </button>
-              <button className="text-link" onClick={() => setModal("sample")}>
-                Look inside <ArrowRight size={17} />
               </button>
             </div>
           </div>
         </section>
         <section
           className="story-section"
-          id="the-book"
+          id="story-preview"
           aria-labelledby="story-title"
         >
           <div className="container story-grid">
@@ -380,29 +159,26 @@ export default function Home() {
                 into the dark feels frightening. With Mo beside her, she begins
                 with one small step.
               </p>
-              <p className="story-benefit">
-                A gentle starting point for conversations about feeling nervous,
-                accepting help and trying something new.
-              </p>
-              <button className="text-link" onClick={() => setModal("sample")}>
-                Read a story excerpt <ArrowRight size={17} />
-              </button>
+              <details className="product-details">
+                <summary>
+                  Product details <Plus size={18} aria-hidden="true" />
+                </summary>
+                <dl>
+                  <div>
+                    <dt>Recommended age</dt>
+                    <dd>Ages 4–8, to read and enjoy together.</dd>
+                  </div>
+                  <div>
+                    <dt>Inside the book</dt>
+                    <dd>
+                      An illustrated woodland story and three activities: spot the
+                      difference, hidden objects and colouring.
+                    </dd>
+                  </div>
+                </dl>
+              </details>
             </div>
-            <figure className="story-art">
-              <button
-                className="spread-button"
-                onClick={() => setModal("sample")}
-                aria-label="Open the story preview"
-              >
-                <img
-                  src="/assets/spread-v2.webp"
-                  alt="An open storybook: Mo encourages Ella on a low branch beside a woodland lake"
-                  width="1859"
-                  height="846"
-                  loading="lazy"
-                />
-              </button>
-            </figure>
+            <StorySpreads />
           </div>
         </section>
         <section
@@ -411,8 +187,8 @@ export default function Home() {
         >
           <div className="container">
             <div className="section-intro">
-              <h2 id="activities-title">More to enjoy together.</h2>
-              <p>Three activities in the book, to enjoy together.</p>
+              <h2 id="activities-title">Inside the book.</h2>
+              <p>Three cozy activities to enjoy together.</p>
             </div>
             <div className="activities-grid">
               {activities.map((activity) => (
@@ -421,8 +197,8 @@ export default function Home() {
                     className="activity-art"
                     src={`/assets/${activity.image}.webp`}
                     alt={activity.alt}
-                    width="1024"
-                    height="1024"
+                    width="800"
+                    height="800"
                     loading="lazy"
                   />
                   <div className="activity-copy">
@@ -447,7 +223,7 @@ export default function Home() {
             <div className="friends-grid">
               {friends.map((f) => (
                 <button
-                  className="friend"
+                  className={`friend friend-${f.id}`}
                   key={f.id}
                   onClick={() => setModal(f.id)}
                   aria-label={`Meet ${f.name}`}
@@ -475,15 +251,16 @@ export default function Home() {
               loading="lazy"
             />
             <div className="origin-copy">
-              <h2 id="origin-title">
-                It began with
-                <br /> a childhood friend.
-              </h2>
+              <h2 id="origin-title">The story behind Life of Mo.</h2>
               <p>
-                Created by Junya Lim, Life of Mo was inspired by a beloved
-                childhood toy. Its stories carry that friendship into a woodland
-                world of new adventures, unfamiliar feelings and growing up
-                together.
+                Created by Junya Lim, Life of Mo imagines who his beloved
+                childhood toy might have become: grown up, with a woodland home
+                and friendships of their own.
+              </p>
+              <p>
+                Through illustrated storybooks, Mo and his friends help children
+                understand their feelings, care for others and find the confidence
+                to try.
               </p>
             </div>
           </div>
@@ -521,70 +298,32 @@ export default function Home() {
           aria-labelledby="launch-title"
         >
           <div className="container launch-inner">
-            <div>
+            <div className="launch-copy">
               <h2 id="launch-title">Begin with Ella’s Night Flight.</h2>
-              <p>The first story in the Life of Mo woodland world.</p>
-              <button className="button" type="button">
-                Pre-order the book
-              </button>
-              <p className="launch-note">£20 · Dispatch date to be confirmed</p>
+              <p className="launch-description">
+                The first story in the Life of Mo woodland world.
+              </p>
+              <div className="launch-purchase">
+                <p className="product-edition">Collector’s edition</p>
+                <p className="product-price">£20</p>
+                <button className="button" type="button">
+                  Pre-order the book
+                </button>
+              </div>
             </div>
-            <img
-              src="/assets/hero-v2.webp"
-              alt="Ella’s Night Flight book preview"
-              width="1536"
-              height="1024"
-              loading="lazy"
-            />
+            <figure className="launch-art">
+              <img
+                src="/assets/hero-collectors-edition-v2.webp"
+                alt="Ella’s Night Flight collector’s edition beside a woodland tree"
+                width="1536"
+                height="1024"
+                loading="lazy"
+              />
+            </figure>
           </div>
         </section>
       </main>
-      <footer className="site-footer">
-        <div className="container footer-main">
-          <div className="footer-brand">
-            <a href="#" aria-label="Life of Mo home">
-              <Brand light />
-            </a>
-            <p>Small adventures. Big feelings.</p>
-          </div>
-          <div className="footer-newsletter">
-            <h2>More stories to come.</h2>
-            <Signup source="footer" dark />
-          </div>
-          <div className="footer-links">
-            <button onClick={() => setModal("booksellers")}>
-              For booksellers
-            </button>
-            <a href="#faq-title">Delivery &amp; pre-orders</a>
-            <button onClick={() => setModal("privacy")}>Privacy</button>
-            <span>© {new Date().getFullYear()} Life of Mo</span>
-          </div>
-        </div>
-      </footer>
-      {modal === "booksellers" && (
-        <Modal title="For booksellers" onClose={() => setModal(null)}>
-          <h2>For booksellers.</h2>
-          <p>
-            Interested in stocking Life of Mo? Leave your email for news about
-            the first release and future bookseller information.
-          </p>
-          <Signup source="bookseller" />
-        </Modal>
-      )}
-      {modal === "privacy" && (
-        <Modal title="Your email and privacy" onClose={() => setModal(null)}>
-          <h2>Your email and privacy.</h2>
-          <p>
-            We store your email address, signup time and signup source in the
-            Life of Mo website database, so we can share book and launch news.
-          </p>
-          <p>
-            This form is for grown-ups. It does not place an order, collect
-            payment details or ask for children’s personal information.
-          </p>
-          <p>No marketing emails are sent automatically by this website.</p>
-        </Modal>
-      )}
+      <SiteFooter />
       {selectedFriend && (
         <Modal
           title={`Meet ${selectedFriend.name}`}
@@ -598,39 +337,6 @@ export default function Home() {
             <span>{selectedFriend.species.toLowerCase()}</span>
           </h2>
           <p>{selectedFriend.detail}</p>
-        </Modal>
-      )}
-      {modal === "sample" && (
-        <Modal
-          title="Inside Ella’s Night Flight"
-          onClose={() => setModal(null)}
-          wide
-        >
-          <h2>Inside Ella’s Night Flight.</h2>
-          <img
-            className="reader-art"
-            src="/assets/spread-v2.webp"
-            alt="Mo encourages Ella to open her wings on a branch by the woodland lake"
-            width="1859"
-            height="846"
-          />
-          <div className="reader-copy">
-            <p>
-              Ella spread her wings, took a shaky breath, and hopped off the
-              branch. Her landing was clumsy, but she made it to the mossy
-              ground.
-            </p>
-            <p>
-              “You did it,” Mo said, clapping softly. “Let’s try from a little
-              higher.”
-            </p>
-          </div>
-          <p className="reader-question">
-            To talk about together: <strong>Who helps you feel brave?</strong>
-          </p>
-          <p className="preview-note">
-            Story and artwork preview; final pages may vary.
-          </p>
         </Modal>
       )}
     </>

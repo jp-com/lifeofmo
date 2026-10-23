@@ -12,11 +12,15 @@ export const metadata: Metadata = {
     title: "Life of Mo — Stories that hug back",
     description:
       "Small adventures. Big feelings. Meet Mo and his friends in Ella’s Night Flight.",
-    images: ["/assets/hero-v2.webp"],
+    images: ["/assets/hero-collectors-edition-v2.webp"],
   },
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: [
+      { url: "/favicon.ico?v=mo-monochrome-1", sizes: "16x16 32x32 48x48" },
+      { url: "/favicon.svg?v=mo-monochrome-1", type: "image/svg+xml", sizes: "any" },
+    ],
+    shortcut: "/favicon.ico?v=mo-monochrome-1",
+    apple: "/apple-touch-icon.png?v=mo-monochrome-1",
   },
 };
 

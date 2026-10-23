@@ -1,15 +1,100 @@
 {
-  "method": "Built-in image_gen tool",
-  "revision": 3,
+  "method": "User-supplied artwork and built-in image_gen illustrations",
+  "revision": 16,
   "assets": [
     {
+      "path": "public/assets/mo-emblem-monochrome.png",
+      "role": "Monochrome hedgehog source for the adaptive favicon, ICO fallback and Apple touch icon",
+      "source": "User-supplied emblem, edited using built-in imagegen",
+      "source_filename": "codex-clipboard-e208ffa6-46a4-4d99-aa0e-cece9b6c2df0.png",
+      "prompt": "Use case: background-extraction. Asset type: exact existing Life of Mo hedgehog emblem prepared for a browser favicon. Edit target: supplied brown hedgehog logo. Change ONLY the brown fill to solid pure black (#000000), remove every cream/background pixel to genuine transparency including the cream negative space in the face. Preserve the exact silhouette, all spikes, feet, snout, nose, eye, outlines, proportions and orientation of the supplied emblem. No redesign, no added details, no shadows, no texture, no letters, no surrounding shape. Crop away the large blank margins and center the complete emblem on a transparent square canvas so it spans 98% of the canvas width with its natural aspect ratio. Output a clean sharp black monochrome silhouette with transparent negative spaces. The emblem must remain completely visible.",
+      "processing": "Alpha bounds fitted to 63/64 of the icon width without distortion. SVG alpha mask uses black in light mode and white in dark mode. ICO fallback contains 16, 32 and 48 pixel entries."
+    },
+    {
+      "path": "public/assets/pip-portrait.webp",
+      "role": "Previous pip portrait; retained as an unused asset",
+      "source": "User-supplied image, 23 October 2026",
+      "source_filename": "codex-clipboard-8f008b76-50f2-485e-ae84-5d9f656bea43.png",
+      "processing": "Scaled proportionally to 800 × 800 and converted to WebP at quality 92; transparency and complete composition preserved"
+    },
+    {
+      "path": "public/assets/ella-portrait.webp",
+      "role": "Previous ella portrait; retained as an unused asset",
+      "source": "User-supplied image, 23 October 2026",
+      "source_filename": "codex-clipboard-1f3d2d74-7de5-4bfb-a6aa-c85166000206.png",
+      "processing": "Scaled proportionally to 800 × 800 and converted to WebP at quality 92; transparency and complete composition preserved"
+    },
+    {
+      "path": "public/assets/benny-portrait.webp",
+      "role": "Previous benny portrait; retained as an unused asset",
+      "source": "User-supplied image, 23 October 2026",
+      "source_filename": "codex-clipboard-122ac5b8-7bb5-48e4-a9ad-703bccf4d0b0.png",
+      "processing": "Scaled proportionally to 800 × 800 and converted to WebP at quality 92; transparency and complete composition preserved"
+    },
+    {
+      "path": "public/assets/mo-portrait.webp",
+      "role": "Previous mo portrait; retained as an unused asset",
+      "source": "User-supplied image, 23 October 2026",
+      "source_filename": "codex-clipboard-f020c2dc-3f23-48fd-8317-da4e44767ffd.png",
+      "processing": "Scaled proportionally to 800 × 800 and converted to WebP at quality 92; transparency and complete composition preserved"
+    },
+    {
+      "path": "public/assets/activity-colouring-detail-v2.webp",
+      "role": "Current Colouring card illustration",
+      "source": "User-supplied image, 23 October 2026",
+      "source_filename": "codex-clipboard-ac949e83-79f2-4e03-a744-be3cbd981156.png",
+      "processing": "Scaled proportionally to 800 × 800 and converted to WebP at quality 92; transparency and complete composition preserved"
+    },
+    {
+      "path": "public/assets/activity-hidden-detail-v2.webp",
+      "role": "Current Hidden objects card illustration",
+      "source": "User-supplied image, 23 October 2026",
+      "source_filename": "codex-clipboard-28b77c01-27bd-4365-9eb0-f627862c85e2.png",
+      "processing": "Scaled proportionally to 800 × 800 and converted to WebP at quality 92; transparency and complete composition preserved"
+    },
+    {
+      "path": "public/assets/activity-spot-detail.webp",
+      "role": "Current Spot the difference card illustration",
+      "source": "User-supplied image, 23 October 2026",
+      "source_filename": "codex-clipboard-994d5674-750a-4232-b9c9-e7759af8f1e5.png",
+      "processing": "Scaled proportionally to 800 × 800 and converted to WebP at quality 92; transparency and complete composition preserved"
+    },
+    {
+      "path": "public/assets/hero-collectors-edition-v2.webp",
+      "role": "Current hero, closing pre-order card and social preview artwork",
+      "source": "User-supplied image, 23 October 2026",
+      "source_filename": "codex-clipboard-a661fa4e-4374-4911-b9cf-cbe079539769.png",
+      "processing": "Converted from PNG to WebP at quality 90; composition and dimensions preserved"
+    },
+    {
+      "path": "public/assets/spread-night-flight-v2.webp",
+      "role": "First storybook carousel spread",
+      "source": "User-supplied image, 23 October 2026",
+      "source_filename": "codex-clipboard-007f3363-8c2d-43d5-aeca-d898d9dd85b1.png",
+      "processing": "Converted from PNG to WebP at quality 92; composition and dimensions preserved"
+    },
+    {
+      "path": "public/assets/spread-moonlit-hilltop.webp",
+      "role": "Second storybook carousel spread",
+      "source": "User-supplied image, 23 October 2026",
+      "source_filename": "codex-clipboard-e1282062-09b6-40a0-9d3b-4cc661936aec.png",
+      "processing": "Scaled proportionally from 3718 × 1692 to 1859 × 846 and converted to WebP at quality 92; complete composition preserved"
+    },
+    {
+      "path": "public/assets/hero-collectors-edition.webp",
+      "role": "Previous user-supplied hero; retained as an unused asset",
+      "source": "User-supplied image, 23 October 2026",
+      "source_filename": "codex-clipboard-f2a19614-74ae-4061-957c-99e5154f0f93.png",
+      "processing": "Converted from PNG to WebP at quality 90; composition and dimensions preserved"
+    },
+    {
       "path": "public/assets/hero-v2.webp",
-      "role": "Cover and woodland product preview",
+      "role": "Previous generated cover and woodland product preview; retained as an unused asset",
       "prompt": "Use case: product-mockup. Image 1 is the user's ORIGINAL WEBSITE CONCEPT, the exact art-direction reference. Create ONLY a high-resolution standalone version of the book-and-tree illustration in its top-right hero. Match this specific original closely: loose scratchy graphite, delicate transparent watercolour, airy cream paper, dusty lavender sky, small round owl with round wire glasses flying, round hedgehog with russet scarf below. The other two images are exact Mo and Ella identity references. Keep proportions and natural hand-drawn mark-making of these sheets. Show an upright lavender book, almost front facing with subtle perspective and cream page edge, a large tree to the right and a few wildflowers/moss at its base. The title on the cover is exactly 'Ella’s Night Flight' in elegant dark brown literary serif over 2 lines, subtitle 'A Life of Mo Story'. Keep the book large and legible, 85% image height. Landscape 3:2 composition, whole book and tree visible. Background flat warm cream #F8F3E5, vignette edges fading softly into the cream. No website text or buttons. Restrained palette, lots of pale paper, no cinematic glowing sunset, no dense photorealistic vegetation, no polished digital rendering. High resolution, crisp fine graphite marks. The final asset must feel like the original concept illustration, not a reimagined fantasy scene."
     },
     {
       "path": "public/assets/spread-v2.webp",
-      "role": "Open storybook preview",
+      "role": "Previous generated storybook preview; retained as an unused asset",
       "prompt": "Use case: product-mockup. Image 1 is the exact original Life of Mo website concept. Create ONLY a standalone high-resolution version of the open storybook in its second section. The other 2 images show exact Mo and Ella character identity. Recreate the original open-book composition: very wide landscape 2.2:1, complete book and cream page edges visible, laid open with gentle central fold. An airy graphite and delicate watercolour illustration runs across both pages: Mo the little hedgehog with russet scarf on the lower left watching Ella the owl with large round glasses on a LOW branch near the centre, woodland lake and distant pines on the right, very pale lavender-peach evening sky. Matching original's sparse paper texture, scratchy graphite and gentle watercolour. Keep generous clear pale areas for story text. Put exactly this text in small dark brown serif on the LEFT pale upper area: '“You can do it,” Mo said.' and on the RIGHT pale upper area: 'Ella spread her wings and took a shaky breath.' Preserve the original character scale and identity, but avoid copying website UI. Cream #F8F3E5 outside the book, near invisible soft shadow. No exaggerated shadows, no artificial 3D page curvature, no dense glowing digital scene. No labels, no website text, no watermarks. Entire book occupies most of width with a small clear margin."
     },
     {
@@ -31,6 +116,34 @@
       "path": "public/assets/activity-colouring.webp",
       "role": "Colouring activity vignette",
       "prompt": "Use case: illustration-story. Asset type: one square activity vignette for the Life of Mo website. First input is the user's activity-section reference, used ONLY for the graphite/watercolour style and activity idea. Second input is the exact character identity sheet. Create ONLY this standalone illustration: Ella, the small round owl with large circular wire glasses and her familiar paintbrushes, holding a coloured pencil beside a sheet bearing a simple uncoloured sunflower outline. A second pencil lies by the page. Make the flower outline and colouring action instantly recognisable. Preserve Ella's exact face and proportions. Delicate scratchy graphite and pale watercolour, muted earthy brown, dusty lavender, cream and moss. A few small foliage strokes at the base; otherwise plenty of clean warm cream #F8F3E5 negative space around all sides, softly fading paper edges. Main subject fills 80% of the square. Entire character, accessories and objects visible. Match the reference's gentle hand-drawn style, not polished digital fantasy. The composition must remain legible when displayed at 100px wide. No text, no title, no border, no card, no interface, no labels, no book mockup. One coherent vignette, no duplicate characters."
+    },
+    {
+      "path": "public/assets/ella-portrait-v2.webp",
+      "role": "Current Ella character card and character detail portrait",
+      "source": "User-supplied image, 23 October 2026",
+      "source_filename": "codex-clipboard-904bf1d3-e14d-48d4-a5a9-213b2831dc62.png",
+      "processing": "Scaled proportionally to 800 × 800 and converted to WebP at quality 92; transparency, shared canvas and complete composition preserved"
+    },
+    {
+      "path": "public/assets/benny-portrait-v2.webp",
+      "role": "Current Benny character card and character detail portrait",
+      "source": "User-supplied image, 23 October 2026",
+      "source_filename": "codex-clipboard-f5d372db-f9f8-4017-a7f4-c948a276663b.png",
+      "processing": "Scaled proportionally to 800 × 800 and converted to WebP at quality 92; transparency, shared canvas and complete composition preserved"
+    },
+    {
+      "path": "public/assets/mo-portrait-v2.webp",
+      "role": "Current Mo character card and character detail portrait",
+      "source": "User-supplied image, 23 October 2026",
+      "source_filename": "codex-clipboard-6795e2ca-3b1a-4ab8-b467-8dd420f1980d.png",
+      "processing": "Scaled proportionally to 800 × 800 and converted to WebP at quality 92; transparency, shared canvas and complete composition preserved"
+    },
+    {
+      "path": "public/assets/pip-portrait-v2.webp",
+      "role": "Current Pip character card and character detail portrait",
+      "source": "User-supplied image, 23 October 2026",
+      "source_filename": "codex-clipboard-5b40a885-0712-488f-904d-367cc1efb1be.png",
+      "processing": "Scaled proportionally to 800 × 800 and converted to WebP at quality 92; transparency, shared canvas and complete composition preserved"
     }
   ],
   "supplied": "The supplied Life of Mo horizontal wordmark and four character sheets are retained. CSS frames select individual characters without changing their proportions. New artwork uses the original website concept and supplied character sheets as references. PNGs were compressed to WebP without changing composition. The readable story excerpt comes from the supplied typography sheet.",
