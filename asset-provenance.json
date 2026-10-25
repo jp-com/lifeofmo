@@ -1,7 +1,14 @@
 {
   "method": "User-supplied artwork and built-in image_gen illustrations",
-  "revision": 16,
+  "revision": 17,
   "assets": [
+    {
+      "path": "public/assets/origin-woodland-tea.jpg",
+      "role": "Current founder story woodland tea illustration",
+      "source": "User-supplied image, 24 October 2026",
+      "source_filename": "codex-clipboard-649b4d93-853d-43c7-8778-4513c0ab3ce6.jpg",
+      "processing": "Original JPEG copied without modification; complete 1536 × 1024 composition displayed at the existing responsive width and placement"
+    },
     {
       "path": "public/assets/mo-emblem-monochrome.png",
       "role": "Monochrome hedgehog source for the adaptive favicon, ICO fallback and Apple touch icon",
@@ -47,14 +54,14 @@
     },
     {
       "path": "public/assets/activity-hidden-detail-v2.webp",
-      "role": "Current Hidden objects card illustration",
+      "role": "Current Crossword card illustration",
       "source": "User-supplied image, 23 October 2026",
       "source_filename": "codex-clipboard-28b77c01-27bd-4365-9eb0-f627862c85e2.png",
       "processing": "Scaled proportionally to 800 × 800 and converted to WebP at quality 92; transparency and complete composition preserved"
     },
     {
       "path": "public/assets/activity-spot-detail.webp",
-      "role": "Current Spot the difference card illustration",
+      "role": "Current Maze card illustration",
       "source": "User-supplied image, 23 October 2026",
       "source_filename": "codex-clipboard-994d5674-750a-4232-b9c9-e7759af8f1e5.png",
       "processing": "Scaled proportionally to 800 × 800 and converted to WebP at quality 92; transparency and complete composition preserved"
@@ -99,7 +106,7 @@
     },
     {
       "path": "public/assets/origin-v2.webp",
-      "role": "Founder story woodland vignette",
+      "role": "Previous founder story woodland vignette; retained as an unused asset",
       "prompt": "Use case: illustration-story. First reference is the original Life of Mo website concept. Recreate only its small founder-story woodland vignette (near the bottom, Mo sitting on a rock), as a standalone high-resolution landscape 2:1 artwork. Second reference is the exact Mo identity: round hedgehog, pale face, small black nose and eyes, russet scarf, scratchy graphite quills. Mo sits on a mossy rock at left beneath an old tree, looking with quiet curiosity at a few tiny golden fireflies, distant pines and a very pale lavender evening sky. Keep the original's airy, delicate watercolour and graphite style; plenty of light warm cream paper and loosely drawn wildflowers. Natural uneven edges dissolve into solid warm cream #F8F3E5 at all sides. A small intimate moment, not a dramatic vista. Same character identity as the supplied sheet, no invented accessories. No text, no frame, no circle, no website UI, no photographic rendering, no heavy digital glow."
     },
     {
@@ -148,5 +155,5 @@
   ],
   "supplied": "The supplied Life of Mo horizontal wordmark and four character sheets are retained. CSS frames select individual characters without changing their proportions. New artwork uses the original website concept and supplied character sheets as references. PNGs were compressed to WebP without changing composition. The readable story excerpt comes from the supplied typography sheet.",
   "fonts": "Self-hosted Lora 500 and Nunito Sans 400/600, from Google Fonts. SIL Open Font License files are included in public/fonts.",
-  "status": "The activity types are confirmed: spot the difference, hidden objects and colouring. Generated activity vignettes illustrate the experience; final printed pages may vary. Cover and story spreads remain previews. Stripe checkout is deferred; price £20 GBP; dispatch to be confirmed."
+  "status": "The activity types are confirmed: maze, crossword and colouring. The current activity illustrations and founder story scene are supplied by the user; final printed activity pages may vary. Cover and story spreads remain previews. Stripe checkout is deferred; price £20 GBP; dispatch to be confirmed."
 }

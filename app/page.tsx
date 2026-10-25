@@ -44,8 +44,8 @@ const faq = [
     "Ella’s Night Flight is for children aged 4–8, with shared reading at its heart. It is a story for children and grown-ups to enjoy and talk about together.",
   ],
   [
-    "What’s included in the £20 book?",
-    "An illustrated woodland story, plus spot the difference, hidden objects and colouring activities to enjoy together. The artwork shown is a preview; the final format, dimensions and page count are still to be confirmed.",
+    "What’s included in the collector’s edition?",
+    "The collector’s edition includes Ella’s Night Flight, plus maze, crossword and colouring activities to enjoy together.",
   ],
   [
     "When will my pre-order arrive?",
@@ -58,14 +58,14 @@ const faq = [
 ];
 const activities = [
   {
-    title: "Spot the difference",
-    text: "Find the tiny changes hidden in each scene.",
+    title: "Maze",
+    text: "Help the woodland friends find their way.",
     image: "activity-spot-detail",
     alt: "A woodland maze and pencil on a soft lavender circle.",
   },
   {
-    title: "Hidden objects",
-    text: "Search for little treasures tucked throughout the woodland.",
+    title: "Crossword",
+    text: "Solve the clues and fill in the words.",
     image: "activity-hidden-detail-v2",
     alt: "A woodland puzzle sheet, oak leaf and pencil on a soft lavender circle.",
   },
@@ -171,8 +171,8 @@ export default function Home() {
                   <div>
                     <dt>Inside the book</dt>
                     <dd>
-                      An illustrated woodland story and three activities: spot the
-                      difference, hidden objects and colouring.
+                      An illustrated woodland story and three activities: maze,
+                      crossword and colouring.
                     </dd>
                   </div>
                 </dl>
@@ -244,10 +244,10 @@ export default function Home() {
           <div className="container origin-grid">
             <img
               className="origin-art"
-              src="/assets/origin-v2.webp"
-              alt="Mo sits on a mossy rock beneath a tree, watching fireflies in the woodland"
-              width="1774"
-              height="887"
+              src="/assets/origin-woodland-tea.jpg"
+              alt="Mo, Benny, Pip and Ella share tea outside their woodland home beneath an old tree"
+              width="1536"
+              height="1024"
               loading="lazy"
             />
             <div className="origin-copy">

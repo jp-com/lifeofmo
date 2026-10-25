@@ -14,7 +14,7 @@ Responsive launch website for Ella’s Night Flight, built with React, Vinext an
 
 ## Content and assets
 
-The website uses the supplied Life of Mo wordmark, palette, book cover, two interior spreads, activity illustrations and individual Mo, Ella, Benny and Pip portraits. The founder woodland scene follows the original concept. The homepage omits preview captions; asset provenance retains the illustration status. Lora and Nunito Sans are self-hosted, with their licenses included.
+The website uses the supplied Life of Mo wordmark, palette, book cover, two interior spreads, activity illustrations and individual Mo, Ella, Benny and Pip portraits. The founder section uses the supplied woodland tea scene, displayed at its natural aspect ratio with the existing responsive width and placement. The homepage omits preview captions; asset provenance retains the illustration status. Lora and Nunito Sans are self-hosted, with their licenses included.
 
 The monochrome hedgehog favicon switches from black in light mode to white in dark mode. PNG and ICO fallbacks are included; `scripts/prepare-favicon.mjs` regenerates them from the emblem source.
 
@@ -60,7 +60,7 @@ Confirm the final cover and interior artwork, physical format, dispatch window, 
 
 ## Activity update
 
-The three confirmed activities are Spot the difference, Hidden objects and Colouring. New illustrations follow the supplied desktop/phone references. The section uses three columns above 700px and stacked illustrated rows at 700px and below; all three activities remain visible. No link to a ten-activity collection is included.
+The three confirmed activities are Maze, Crossword and Colouring. Their descriptions are “Help the woodland friends find their way.”, “Solve the clues and fill in the words.” and “Bring the woodland to life with your own colours.” The illustrations follow the supplied desktop/phone references. The section uses three columns above 700px and stacked illustrated rows at 700px and below; all three activities remain visible. No link to a ten-activity collection is included.
 
 ## Focused story and launch copy
 
@@ -69,6 +69,8 @@ The hero presents the collector’s edition, £20 price and static pre-order but
 The footer uses the tagline “Stories that hug back”, grouped Explore and Here to help navigation, a “Keep in touch” newsletter form and a separate copyright/privacy row. The email field retains an accessible label without displaying it above the field.
 
 Page sections use spacing rather than divider rules. Header, story, friends, founder, closing invitation and footer column separators are removed; activity card outlines and FAQ row separators remain functional component details.
+
+From the friends section through the closing invitation, headings share a responsive scale of 32–36px on desktop and 28px on tablet and phone. Supporting text and FAQ questions/answers use 16px, with character captions at 14px. Content-block gaps are 80px on desktop, 64px on tablet and 56px on phone. FAQ controls use at least 64px rows with 20px vertical padding; the existing artwork, image columns and copy are retained.
 
 The activities and friends headings and introductory text are centred at every screen size, with balanced line wrapping and centred paragraph widths on phones. Friends sit in softly outlined cream cards, with short muted lavender, gold, moss and warm-brown marks between names and descriptions. Four columns become two below 1024px.
 

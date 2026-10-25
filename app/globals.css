@@ -29,6 +29,7 @@
   --serif: Lora, Georgia, serif;
   --sans: "Nunito Sans", Arial, sans-serif;
   --gutter: 40px;
+  --lower-heading-size: clamp(32px, 2.52vw, 36px);
 }
 * {
   box-sizing: border-box;
@@ -578,7 +579,13 @@ input:focus-visible {
   padding: 0 0 40px;
 }
 .friends-section > .container {
-  padding-top: 34px;
+  padding-top: 42px;
+}
+.friends-section .section-intro h2 {
+  font-size: var(--lower-heading-size);
+}
+.friends-section .section-intro > p {
+  font-size: 16px;
 }
 .friends-grid {
   display: grid;
@@ -664,13 +671,13 @@ input:focus-visible {
   transform: rotate(-2deg);
 }
 .friend > p {
-  font-size: 13.5px;
+  font-size: 14px;
   line-height: 1.45;
   max-width: 180px;
   margin-top: 0;
 }
 .origin-section {
-  padding: 28px 0;
+  padding: 40px 0;
 }
 .origin-grid {
   display: grid;
@@ -684,19 +691,19 @@ input:focus-visible {
   margin-inline: auto;
 }
 .origin-copy h2 {
-  font-size: 30.6px;
+  font-size: var(--lower-heading-size);
 }
 .origin-copy h2 br {
   display: none;
 }
 .origin-copy p {
-  font-size: 15.3px;
+  font-size: 16px;
   line-height: 1.6;
   margin-top: 18px;
   max-width: 510px;
 }
 .faq-section {
-  padding: 46px 0;
+  padding: 40px 0;
 }
 .faq-grid {
   display: grid;
@@ -704,14 +711,15 @@ input:focus-visible {
   gap: 60px;
 }
 .faq-grid h2 {
-  font-size: 28.8px;
+  font-size: var(--lower-heading-size);
 }
 .faq-item {
   border-bottom: 1px solid var(--line);
 }
 .faq-item h3 {
   font-family: var(--sans);
-  font-size: 14.4px;
+  font-size: 16px;
+  font-weight: 600;
   letter-spacing: 0;
 }
 .faq-item h3 button {
@@ -720,10 +728,10 @@ input:focus-visible {
   justify-content: space-between;
   gap: 16px;
   width: 100%;
-  min-height: 55px;
+  min-height: 64px;
   text-align: left;
-  padding: 14px 0;
-  line-height: 1.4;
+  padding: 20px 0;
+  line-height: 1.5;
 }
 .faq-item svg {
   flex-shrink: 0;
@@ -733,12 +741,12 @@ input:focus-visible {
   transform: rotate(45deg);
 }
 .faq-item > div > p {
-  font-size: 13.5px;
+  font-size: 16px;
   line-height: 1.6;
-  padding: 0 30px 18px 0;
+  padding: 0 30px 22px 0;
 }
 .launch-section {
-  padding: 8px 0 48px;
+  padding: 40px 0 48px;
 }
 .launch-inner {
   display: grid;
@@ -757,13 +765,13 @@ input:focus-visible {
   padding: 40px 48px;
 }
 .launch-inner h2 {
-  font-size: 36px;
+  font-size: var(--lower-heading-size);
   line-height: 1.18;
   text-wrap: balance;
 }
 .launch-description {
   margin-top: 16px;
-  font-size: 15.3px;
+  font-size: 16px;
   max-width: 420px;
 }
 .launch-purchase {
@@ -1036,6 +1044,7 @@ input:focus-visible {
 @media (max-width: 1199px) {
   :root {
     --gutter: 32px;
+    --lower-heading-size: 32px;
   }
   .hero {
     min-height: 500px;
@@ -1068,15 +1077,6 @@ input:focus-visible {
   .origin-grid {
     gap: 32px;
   }
-  .origin-copy h2 {
-    font-size: 27px;
-  }
-  .origin-copy p {
-    font-size: 14.4px;
-  }
-  .launch-inner h2 {
-    font-size: 32.4px;
-  }
   .footer-main {
     gap: 32px;
     grid-template-columns: 0.85fr 1.15fr 1.2fr;
@@ -1090,6 +1090,9 @@ input:focus-visible {
 
 }
 @media (min-width: 701px) and (max-width: 1023px) {
+  :root {
+    --lower-heading-size: 28px;
+  }
   .header-inner {
     min-height: 66px;
   }
@@ -1159,6 +1162,12 @@ input:focus-visible {
   .section-intro > p {
     font-size: 14.4px;
   }
+  .friends-section {
+    padding-bottom: 32px;
+  }
+  .friends-section > .container {
+    padding-top: 34px;
+  }
   .friends-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
@@ -1174,31 +1183,23 @@ input:focus-visible {
     font-size: 19.8px;
   }
   .friend > p {
-    font-size: 12.6px;
     max-width: 160px;
   }
   .origin-section {
-    padding-block: 22px;
-  }
-  .origin-copy h2 {
-    font-size: 26.1px;
+    padding-block: 32px;
   }
   .origin-copy p {
-    font-size: 13.5px;
     margin-top: 14px;
   }
   .faq-section {
-    padding-block: 34px;
+    padding-block: 32px;
   }
   .faq-grid {
     grid-template-columns: 0.9fr 1.8fr;
     gap: 32px;
   }
-  .faq-grid h2 {
-    font-size: 26.1px;
-  }
-  .faq-item h3 {
-    font-size: 13.5px;
+  .launch-section {
+    padding-top: 32px;
   }
   .launch-inner {
     min-height: 300px;
@@ -1206,12 +1207,6 @@ input:focus-visible {
   }
   .launch-copy {
     padding: 32px;
-  }
-  .launch-inner h2 {
-    font-size: 28.8px;
-  }
-  .launch-description {
-    font-size: 13.5px;
   }
   .launch-inner .button {
     font-size: 13.5px;
@@ -1247,6 +1242,7 @@ input:focus-visible {
 @media (max-width: 700px) {
   :root {
     --gutter: 24px;
+    --lower-heading-size: 28px;
   }
   body {
     font-size: 14.4px;
@@ -1377,10 +1373,10 @@ input:focus-visible {
     max-width: 400px;
   }
   .friends-section {
-    padding-bottom: 30px;
+    padding-bottom: 28px;
   }
   .friends-section > .container {
-    padding-top: 30px;
+    padding-top: 28px;
   }
   .friends-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1400,27 +1396,22 @@ input:focus-visible {
     font-size: 19.8px;
   }
   .friend > p {
-    font-size: 12.6px;
     line-height: 1.4;
     max-width: 160px;
     margin-top: 0;
   }
   .origin-section {
-    padding-block: 26px;
+    padding-block: 28px;
   }
   .origin-grid {
     display: flex;
     flex-direction: column-reverse;
     gap: 14px;
   }
-  .origin-copy h2 {
-    font-size: 27px;
-  }
   .origin-copy h2 br {
     display: none;
   }
   .origin-copy p {
-    font-size: 14.4px;
     line-height: 1.55;
     margin-top: 14px;
   }
@@ -1430,31 +1421,20 @@ input:focus-visible {
     margin-inline: auto;
   }
   .faq-section {
-    padding: 30px 0;
+    padding: 28px 0;
   }
   .faq-grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
-  .faq-grid h2 {
-    font-size: 26.1px;
-  }
   .faq-grid h2 br {
     display: none;
   }
-  .faq-item h3 {
-    font-size: 13.5px;
-  }
-  .faq-item h3 button {
-    min-height: 56px;
-    padding-block: 14px;
-  }
   .faq-item > div > p {
-    font-size: 13.5px;
     padding-right: 22px;
   }
   .launch-section {
-    padding-block: 6px 32px;
+    padding-block: 28px 32px;
   }
   .launch-inner {
     min-height: 0;
@@ -1473,12 +1453,10 @@ input:focus-visible {
     mask-image: none;
   }
   .launch-inner h2 {
-    font-size: 27px;
     max-width: 360px;
     margin: auto;
   }
   .launch-description {
-    font-size: 14.4px;
     margin-top: 12px;
     max-width: 320px;
     margin-inline: auto;
@@ -1582,9 +1560,6 @@ input:focus-visible {
   }
   .friend .character-art {
     width: 150px;
-  }
-  .friend > p {
-    font-size: 12px;
   }
   .signup-row input {
     min-width: 0;
