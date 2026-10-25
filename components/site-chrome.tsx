@@ -1,19 +1,9 @@
 "use client";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { Check, Menu, X } from "lucide-react";
+import Link from "next/link";
+import { Brand } from "./brand";
 
-function Brand({ light = false }: { light?: boolean }) {
-  return (
-    <span className={`brand-mark ${light ? "brand-light" : ""}`}>
-      <img
-        src="/assets/wordmark.webp"
-        alt="Life of Mo"
-        width="1254"
-        height="1254"
-      />
-    </span>
-  );
-}
 export function Modal({
   title,
   onClose,
@@ -182,9 +172,9 @@ export function SiteHeader() {
             <a href="/#friends">Meet the friends</a>
             <a href="/#our-story">Our story</a>
           </nav>
-          <button className="button header-join" type="button">
+          <Link className="button header-join" href="/checkout">
             Pre-order
-          </button>
+          </Link>
           <button
             ref={menuButton}
             className="icon-button menu-toggle"
@@ -211,9 +201,9 @@ export function SiteHeader() {
             <a href="/#our-story" onClick={closeMenu}>
               Our story
             </a>
-            <button className="button" type="button">
+            <Link className="button" href="/checkout" onClick={closeMenu}>
               Pre-order the book
-            </button>
+            </Link>
           </nav>
         )}
       </header>

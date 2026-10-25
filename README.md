@@ -5,9 +5,10 @@ Responsive launch website for Ella’s Night Flight, built with React, Vinext an
 ## Launch state
 
 - Book price: £20 GBP.
-- The page presents the £20 pre-order offer. Dispatch timing and delivery charges are unconfirmed.
-- Purchase buttons read “Pre-order the book” (or “Pre-order” in the header) and are intentionally static. They do not navigate, submit data or open a dialog. No payment is taken and no copy is reserved.
-- Stripe checkout is deliberately deferred until the owner is ready to build it.
+- All pre-order links lead directly to `/checkout`, a local design preview. No payment is taken and no copy is reserved.
+- The checkout presents the £20 collector’s edition, independent quantities for the optional next book at £15 instead of £20, £5 Standard tracked delivery and £7.50 Shipping+ (initial test price). Shipping+ includes priority dispatch once available, faster delivery and prepaid UK change-of-mind returns.
+- Delivery is modelled as one charge per order, including separately dispatched books, pending confirmation. The preview uses UK delivery only. Dispatch dates and the next book’s title/release date are unconfirmed.
+- Stripe is not integrated yet; the payment area and disabled action explicitly identify the preview. Contact/address fields are not submitted or persisted. The connected Stripe app currently requires reauthentication.
 - Email signups persist in D1. This build does not send emails or connect an email marketing provider.
 - The `/contact` page validates enquiries and stores them in D1. It does not forward messages by email; connect an email delivery provider before offering inbox notifications. The visible `hello@lifeofmo.example` address is a non-clickable placeholder, to replace before launch.
 - Site access is private to the owner.
@@ -28,9 +29,13 @@ The favicon places the original black hedgehog on a white circle in both light a
 - Natural content height, 16px inputs, 44px secondary controls and 48px primary actions with a 6px corner radius; reduced-motion support and native dialog focus containment.
 - The story preview includes two supplied spreads with dot controls and a three-second rotation. It pauses on hover, keyboard focus or manual selection, and respects reduced-motion preferences.
 
+The checkout uses paired contact fields, an expandable optional address line and a compact UK destination label. Its order summary sits with the book on the right on desktop. A smaller book image and reduced section spacing bring the payment action higher while retaining 16px inputs; contact fields stack on narrow phones.
+
 ## Main files
 
 - `app/page.tsx`: homepage, characters and FAQ.
+- `app/checkout/`: responsive checkout preview, with the form on the left and book on the right on desktop; product first on phones.
+- `lib/checkout.ts`: preview prices in integer pence and quantity/total calculations. These are not trusted server-side payment prices.
 - `components/site-chrome.tsx`: shared navigation, footer, newsletter and dialogs.
 - `components/story-spreads.tsx`: two-spread carousel and motion preferences.
 - `app/contact/`: responsive contact page and form.
@@ -56,7 +61,7 @@ Desktop, tablet and phone layouts were checked from 320px to 1920px, with no hor
 
 ## Before taking orders
 
-Confirm the final cover and interior artwork, physical format, dispatch window, delivery destinations and charges. Add the Stripe checkout flow and reviewed shop policies. Connect an email delivery service when launch messages are ready to send.
+Confirm the final cover and interior artwork, physical format, dispatch windows, supported delivery destinations, Shipping+ service terms, charges for separately shipped books and whether the next-book preorder is paid now. Add Stripe Checkout Sessions with the Payment Element, server-owned prices and quantity validation, signed webhooks with idempotent paid-order fulfilment, and reviewed shop policies before enabling payment. Load the checkout shell independently of Stripe and initialise Stripe once when integrating. Connect an email delivery service when launch messages are ready to send.
 
 ## Activity update
 
@@ -64,7 +69,7 @@ The three confirmed activities are Maze, Crossword and Colouring. Their descript
 
 ## Focused story and launch copy
 
-The hero presents the collector’s edition, £20 price and static pre-order button. The story preview combines Ella’s first step with the spread carousel and product-details accordion on the same flat cream background as the rest of the page. Activities follow under “Inside the book.” with “Three cozy activities to enjoy together.” Unconfirmed format, dimensions, page count and production details remain unpublished.
+The hero presents the collector’s edition, £20 price and direct checkout link. The story preview combines Ella’s first step with the spread carousel and product-details accordion on the same flat cream background as the rest of the page. Activities follow under “Inside the book.” with “Three cozy activities to enjoy together.” Unconfirmed format, dimensions, page count and production details remain unpublished.
 
 The footer uses the tagline “Stories that hug back”, grouped Explore and Here to help navigation, a “Keep in touch” newsletter form and a separate copyright/privacy row. The email field retains an accessible label without displaying it above the field.
 
@@ -74,6 +79,6 @@ From the friends section through the closing invitation, headings share a respon
 
 The activities and friends headings and introductory text are centred at every screen size, with balanced line wrapping and centred paragraph widths on phones. Friends sit in softly outlined cream cards, with short muted lavender, gold, moss and warm-brown marks between names and descriptions. Four columns become two below 1024px.
 
-The hero availability/dispatch line and the cover, open-spread and activities preview captions are removed. The closing purchase card repeats the collector’s edition and £20 price above its static pre-order button, with artwork flush to the card’s right edge on desktop. Dispatch information remains in the FAQ.
+The hero availability/dispatch line and the cover, open-spread and activities preview captions are removed. The closing purchase card repeats the collector’s edition and £20 price above its direct checkout link, with artwork flush to the card’s right edge on desktop. Dispatch information remains in the FAQ.
 
 The story excerpt link, reader modal and hero’s “Look inside” link are removed.

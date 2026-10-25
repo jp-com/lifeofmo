@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Plus } from "lucide-react";
+import Link from "next/link";
 import { Modal, SiteHeader, SiteFooter } from "../components/site-chrome";
 import { StorySpreads } from "../components/story-spreads";
 
@@ -137,9 +138,9 @@ export default function Home() {
             <p className="product-edition">Collector’s edition</p>
             <p className="product-price">£20</p>
             <div className="hero-actions">
-              <button className="button" type="button">
+              <Link className="button" href="/checkout">
                 Pre-order the book
-              </button>
+              </Link>
             </div>
           </div>
         </section>
@@ -306,9 +307,9 @@ export default function Home() {
               <div className="launch-purchase">
                 <p className="product-edition">Collector’s edition</p>
                 <p className="product-price">£20</p>
-                <button className="button" type="button">
+                <Link className="button" href="/checkout">
                   Pre-order the book
-                </button>
+                </Link>
               </div>
             </div>
             <figure className="launch-art">
