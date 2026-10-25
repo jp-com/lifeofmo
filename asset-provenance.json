@@ -1,6 +1,6 @@
 {
   "method": "User-supplied artwork and built-in image_gen illustrations",
-  "revision": 17,
+  "revision": 18,
   "assets": [
     {
       "path": "public/assets/origin-woodland-tea.jpg",
@@ -11,11 +11,11 @@
     },
     {
       "path": "public/assets/mo-emblem-monochrome.png",
-      "role": "Monochrome hedgehog source for the adaptive favicon, ICO fallback and Apple touch icon",
+      "role": "Monochrome hedgehog source for the white-circle favicon, ICO fallback and Apple touch icon",
       "source": "User-supplied emblem, edited using built-in imagegen",
       "source_filename": "codex-clipboard-e208ffa6-46a4-4d99-aa0e-cece9b6c2df0.png",
       "prompt": "Use case: background-extraction. Asset type: exact existing Life of Mo hedgehog emblem prepared for a browser favicon. Edit target: supplied brown hedgehog logo. Change ONLY the brown fill to solid pure black (#000000), remove every cream/background pixel to genuine transparency including the cream negative space in the face. Preserve the exact silhouette, all spikes, feet, snout, nose, eye, outlines, proportions and orientation of the supplied emblem. No redesign, no added details, no shadows, no texture, no letters, no surrounding shape. Crop away the large blank margins and center the complete emblem on a transparent square canvas so it spans 98% of the canvas width with its natural aspect ratio. Output a clean sharp black monochrome silhouette with transparent negative spaces. The emblem must remain completely visible.",
-      "processing": "Alpha bounds fitted to 63/64 of the icon width without distortion. SVG alpha mask uses black in light mode and white in dark mode. ICO fallback contains 16, 32 and 48 pixel entries."
+      "processing": "Original emblem source retained unchanged. Its silhouette is scaled proportionally to fit within a 28px radius, centred on a white circle of radius 32px in a 64px SVG canvas. The hedgehog stays black in both colour schemes, with transparent corners outside the circle. ICO fallback contains 16, 32 and 48 pixel entries."
     },
     {
       "path": "public/assets/pip-portrait.webp",

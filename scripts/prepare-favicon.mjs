@@ -23,19 +23,31 @@ for (let y = 0; y < info.height; y++) {
 if (right < left) throw new Error("The emblem has no visible pixels.");
 const width = right - left + 1;
 const height = bottom - top + 1;
+// Fit the complete silhouette inside the white circle with a clear rim.
+const centerX = (left + right) / 2;
+const centerY = (top + bottom) / 2;
+let radiusSquared = 0;
+for (let y = top; y <= bottom; y++) {
+  for (let x = left; x <= right; x++) {
+    if (data[(y * info.width + x) * 4 + 3] <= 8) continue;
+    radiusSquared = Math.max(radiusSquared, (x - centerX) ** 2 + (y - centerY) ** 2);
+  }
+}
+const scale = 28 / Math.sqrt(radiusSquared);
+const markWidth = width * scale;
+const markHeight = height * scale;
 const mark = await sharp(source)
   .extract({ left, top, width, height })
   .resize({ width: 512 })
   .png()
   .toBuffer();
-const markHeight = 63 * height / width;
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
   <title>Life of Mo</title>
-  <style>.mark{fill:#000}@media(prefers-color-scheme:dark){.mark{fill:#fff}}</style>
   <defs><mask id="emblem" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
-    <image x="0.5" y="${(64 - markHeight) / 2}" width="63" height="${markHeight}" href="data:image/png;base64,${mark.toString("base64")}"/>
+    <image x="${(64 - markWidth) / 2}" y="${(64 - markHeight) / 2}" width="${markWidth}" height="${markHeight}" href="data:image/png;base64,${mark.toString("base64")}"/>
   </mask></defs>
-  <path class="mark" d="M0 0h64v64H0z" mask="url(#emblem)"/>
+  <circle cx="32" cy="32" r="32" fill="#fff"/>
+  <path fill="#000" d="M0 0h64v64H0z" mask="url(#emblem)"/>
 </svg>\n`;
 await fs.writeFile(path.join(root, "public/favicon.svg"), svg);
 
@@ -60,4 +72,4 @@ await fs.writeFile(path.join(root, "public/favicon.ico"), Buffer.concat([directo
 await fs.writeFile(path.join(root, "public/favicon-32.png"), pngs[1]);
 await sharp(Buffer.from(svg)).resize(180, 180).flatten({background:"#fff"}).png()
   .toFile(path.join(root, "public/apple-touch-icon.png"));
-console.log(`Favicon uses 63 of 64 pixels of width; emblem aspect ratio ${width}:${height}.`);
+console.log(`White-circle favicon generated; emblem aspect ratio ${width}:${height}, width ${markWidth.toFixed(1)} of 64 pixels.`);

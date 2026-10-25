@@ -16,11 +16,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico?v=mo-monochrome-1", sizes: "16x16 32x32 48x48" },
-      { url: "/favicon.svg?v=mo-monochrome-1", type: "image/svg+xml", sizes: "any" },
+      { url: "/favicon.ico?v=mo-white-circle-2", sizes: "16x16 32x32 48x48" },
+      { url: "/favicon.svg?v=mo-white-circle-2", type: "image/svg+xml", sizes: "any" },
     ],
-    shortcut: "/favicon.ico?v=mo-monochrome-1",
-    apple: "/apple-touch-icon.png?v=mo-monochrome-1",
+    shortcut: "/favicon.ico?v=mo-white-circle-2",
+    apple: "/apple-touch-icon.png?v=mo-white-circle-2",
   },
 };
 

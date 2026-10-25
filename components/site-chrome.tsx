@@ -231,7 +231,7 @@ export function SiteFooter() {
             <a href="/" aria-label="Life of Mo home">
               <Brand light />
             </a>
-            <p className="footer-tagline">Stories that hug back</p>
+            <p className="footer-tagline">Stories that hug back.</p>
           </div>
           <nav className="footer-navigation" aria-label="Footer navigation">
             <div className="footer-links">

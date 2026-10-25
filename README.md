@@ -16,7 +16,7 @@ Responsive launch website for Ella’s Night Flight, built with React, Vinext an
 
 The website uses the supplied Life of Mo wordmark, palette, book cover, two interior spreads, activity illustrations and individual Mo, Ella, Benny and Pip portraits. The founder section uses the supplied woodland tea scene, displayed at its natural aspect ratio with the existing responsive width and placement. The homepage omits preview captions; asset provenance retains the illustration status. Lora and Nunito Sans are self-hosted, with their licenses included.
 
-The monochrome hedgehog favicon switches from black in light mode to white in dark mode. PNG and ICO fallbacks are included; `scripts/prepare-favicon.mjs` regenerates them from the emblem source.
+The favicon places the original black hedgehog on a white circle in both light and dark mode. PNG and ICO fallbacks are included; `scripts/prepare-favicon.mjs` regenerates them from the unchanged emblem source.
 
 `asset-provenance.json` records sources, image-generation prompts and asset status.
 
