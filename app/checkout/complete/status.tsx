@@ -57,7 +57,7 @@ export default function OrderStatus() {
         <p>Thank you. Your payment of <strong>{formatPrice(receipt.total)}</strong> is confirmed.</p>
         <p>Ella’s Night Flight × {receipt.cart.bookQuantity}{receipt.cart.nextBookQuantity ? ` · The next Life of Mo book × ${receipt.cart.nextBookQuantity}` : ""}</p>
         {receipt.giftQuantity ? <p>Your order includes one free colouring pencil set.</p> : null}
-        <p>This is a pre-order. Dispatch dates are still to be confirmed{receipt.cart.nextBookQuantity ? "; the next book may ship separately" : ""}.</p>
+        <p>This is a pre-order. Dispatch dates are still to be confirmed.{receipt.cart.nextBookQuantity ? " The next book is paid in full and may ship separately at no extra delivery charge." : ""}</p>
         <p>Order reference: {receipt.orderId.slice(0, 8).toUpperCase()}</p>
       </> : error ? <p role="alert">{error.message}</p> : ended ? <p>No paid order has been confirmed. You can return to checkout to try again.</p> : <p>{receipt?.status === "review" ? "We received a payment notification and need to check the order. Please contact us with your order reference before trying again." : "We’re waiting for Stripe to confirm your payment. Please don’t pay again while it is being checked."}</p>}
       {waiting ? <p>Confirmation is taking longer than usual. Check again shortly, or contact us if you need help.</p> : null}

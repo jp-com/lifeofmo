@@ -12,7 +12,7 @@ export function stripeCart(cart: CheckoutCart) {
     } }, quantity: cart.bookQuantity,
   }];
   if (cart.nextBookQuantity) line_items.push({ price_data: { currency: "gbp", unit_amount: NEXT_BOOK_PRICE, product_data: {
-    name: "The next Life of Mo book", description: "Pre-order. Title and release date to be announced. May ship separately.", metadata: { sku: "next-book-preorder" },
+    name: "The next Life of Mo book", description: "Pre-order, paid in full now. No extra delivery charge if shipped separately. Title and release date to be announced.", metadata: { sku: "next-book-preorder" },
   } }, quantity: cart.nextBookQuantity });
   return { line_items, shipping_options: [{ shipping_rate_data: {
     type: "fixed_amount" as const, display_name: shippingOptions[cart.shipping].name,

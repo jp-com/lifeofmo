@@ -1,4 +1,4 @@
-import { env } from "cloudflare:workers";
+import { env } from "@/lib/runtime-env";
 import Stripe from "stripe";
 import { z } from "zod";
 import type { CheckoutConfig } from "./checkout-contract";
@@ -13,9 +13,8 @@ export function checkoutConfig(): CheckoutConfig {
   const configured = (mode === "sandbox" || mode === "live") &&
     new RegExp(`^(rk|sk)_${keyMode}_`).test(env.STRIPE_SECRET_KEY ?? "") &&
     (env.STRIPE_PUBLISHABLE_KEY ?? "").startsWith(`pk_${keyMode}_`) &&
-    (env.STRIPE_WEBHOOK_SECRET ?? "").startsWith("whsec_") && Boolean(env.DB) &&
-    env.NEXT_BOOK_POSTAGE === "included";
-  return { enabled: Boolean(configured), ...(configured ? { publishableKey: env.STRIPE_PUBLISHABLE_KEY, sandbox: mode === "sandbox" } : {}), nextBookPostage: env.NEXT_BOOK_POSTAGE === "included" ? "included" : "pending" };
+    (env.STRIPE_WEBHOOK_SECRET ?? "").startsWith("whsec_") && Boolean(env.DB);
+  return { enabled: Boolean(configured), ...(configured ? { publishableKey: env.STRIPE_PUBLISHABLE_KEY, sandbox: mode === "sandbox" } : {}), nextBookPostage: "included" };
 }
 export function stripeClient() {
   if (!env.STRIPE_SECRET_KEY) throw new CheckoutError("Checkout isn’t open yet.", 503);

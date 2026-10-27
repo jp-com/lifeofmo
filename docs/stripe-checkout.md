@@ -4,18 +4,17 @@ The automatic offer is implemented: one Ella collector’s edition is £20; ever
 
 ## Current activation state
 
-Payments remain disabled. The owner explicitly asked to decide next-book postage before enabling payment. The Stripe connector also requires reconnection. No Stripe account, sandbox credentials, webhook endpoint or real payment has been verified in this workspace. This is implemented integration code, not a live checkout.
+Payments remain disabled. On 27 October 2026 the owner confirmed that next-book pre-orders are charged now, with no additional postage later, and selected the connected merchant account for Life of Mo. Stripe reports charges and payouts enabled on that account. No sandbox credentials, webhook endpoint or real payment has been verified in this workspace. This is implemented integration code, not a live checkout.
 
-The only implemented postage policy for an enabled checkout is `included`: one £5/£7.50 charge covers the whole order, including any later separate shipment. Do not select it until the owner confirms it. If separate postage is chosen, first add its explicit amount to the shared totals, Stripe shipping charge, summary, disclosures and tests. While pending, an order containing the next book displays an estimated total and the unresolved postage disclosure.
+The approved postage policy is `included`: one £5/£7.50 charge covers the whole order, including any later separate shipment. All books are paid in full at checkout. The offer, Stripe product description and receipt disclose that there is no additional delivery charge later. The displayed total is final, including baskets containing the next book. This policy is part of the application and no longer requires a runtime postage flag.
 
 ## Configuration
 
-For local development, use an ignored `.dev.vars` file at the repository root. Store hosted secrets using the Sites environment-variable tools. Never put server keys in `NEXT_PUBLIC_*`, `VITE_*`, source code or chat. Prefer a restricted Stripe key (`rk_test_` / `rk_live_`) with only the permissions this checkout needs: Checkout Sessions create/read/update, associated Product/Price/Shipping Rate creation/read, and retrieval of line-item products. Confirm the exact restricted-key permissions in the chosen sandbox.
+For local Vinext development, use an ignored `.dev.vars` file at the repository root. Store hosted secrets in the selected platform's secret environment settings (Vercel for the requested production deployment; Sites for the existing private Site). Never put server keys in `NEXT_PUBLIC_*`, `VITE_*`, source code or chat. Prefer a restricted Stripe key (`rk_test_` / `rk_live_`) with only the permissions this checkout needs: Checkout Sessions create/read/update, associated Product/Price/Shipping Rate creation/read, and retrieval of line-item products. Confirm the exact restricted-key permissions in the chosen sandbox.
 
 | Variable | Purpose |
 | --- | --- |
 | `CHECKOUT_MODE` | `disabled` by default; `sandbox` for test credentials; `live` only after launch verification |
-| `NEXT_BOOK_POSTAGE` | `pending` until decided; currently only `included` can enable checkout |
 | `STRIPE_SECRET_KEY` | Server-only restricted key for the selected environment |
 | `STRIPE_PUBLISHABLE_KEY` | Matching public Stripe key |
 | `STRIPE_WEBHOOK_SECRET` | Signing secret for this environment’s endpoint or local listener |
@@ -24,7 +23,9 @@ All settings and D1 must be present, with matching test/live key prefixes, befor
 
 Use a separate Stripe sandbox for development. After account connection, apply pending D1 migrations (including `0003_messy_carnage.sql`), configure sandbox keys, and forward sandbox webhooks to `http://127.0.0.1:5173/api/stripe/webhook` with Stripe CLI. Keep the listener signing secret local. Restart the development server after changing `.dev.vars`.
 
-The hosted endpoint is `/api/stripe/webhook` and must receive unauthenticated requests from Stripe; it authenticates the raw payload using its Stripe signature. The currently private Site may block those requests before the handler. Confirm the production routing/access arrangement before enabling live mode; do not publish the private site merely to test webhooks.
+The hosted endpoint is `/api/stripe/webhook` and must receive unauthenticated requests from Stripe; it authenticates the raw payload using its Stripe signature. The current Site is private, with no custom domain or hosted environment variables configured as of 27 October 2026. Confirm the intended public production URL and routing/access arrangement before enabling live mode; do not change the private site's audience merely to test webhooks.
+
+The requested Vercel project is `lifeofmo`, with the assigned domain `lifeofmo-seven.vercel.app`. Vercel uses the native Next.js build (`npm run build:vercel`); the local preview and Sites continue to use Vinext and Cloudflare D1. Vercel has no database binding or Stripe environment variables configured yet. The Node runtime intentionally leaves the database unavailable: all data-dependent writes return an error and payments stay disabled. Connecting persistent storage, applying the existing schema, and testing the payment/webhook flow are required before accepting orders there. The Stripe app connection alone does not supply server API keys.
 
 Register these events using API version `2026-09-30.endive` (the version pinned by Stripe Node 23.0.1):
 

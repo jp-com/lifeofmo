@@ -5,14 +5,14 @@ Responsive launch website for Ella’s Night Flight, built with React, Vinext an
 ## Launch state
 
 - Book price: £20 GBP.
-- All pre-order links lead directly to `/checkout`. Payments remain disabled until Stripe is connected and the next-book postage policy is decided.
+- All pre-order links lead directly to `/checkout`. Payments remain disabled until the intended Stripe account, public production endpoint and payment/webhook flow are configured and verified.
 - The checkout presents the £20 collector’s edition, independent quantities for the optional next book at £18 instead of £20, £5 Standard tracked delivery and £7.50 Shipping+ (initial test price). Shipping+ includes priority dispatch once available, faster delivery and prepaid UK change-of-mind returns.
 - The “One to keep, one to give” offer automatically prices all Ella copies at £18 each for quantities of two or more; one copy remains £20. The optional next book stays £18 and does not count towards the threshold. The offer details and separate savings are shown beside the product and in the summary.
-- Delivery is UK-only. Postage for a separately dispatched next book is unresolved, and such baskets show an estimated total. Dispatch dates and the next book’s title/release date are unconfirmed.
-- Stripe Checkout Sessions and Payment Element integration is implemented behind a disabled activation gate, with server pricing, owned sessions, signed webhooks and persistent order records. The connected Stripe app still requires reauthentication, so no sandbox payment has been verified. See `docs/stripe-checkout.md` for configuration and verification.
+- Delivery is UK-only. The owner confirmed that the £18 next-book pre-order is charged now, with any later separate shipment included in the order’s £5/£7.50 delivery charge. Dispatch dates and the next book’s title/release date are unconfirmed.
+- Stripe Checkout Sessions and Payment Element integration is implemented behind a disabled activation gate, with server pricing, owned sessions, signed webhooks and persistent order records. Stripe is connected and the owner has confirmed the merchant account. No sandbox payment has been verified. See `docs/stripe-checkout.md` for configuration and verification.
 - Email signups persist in D1. This build does not send emails or connect an email marketing provider.
 - The `/contact` page validates enquiries and stores them in D1. It does not forward messages by email; connect an email delivery provider before offering inbox notifications. The visible `hello@lifeofmo.example` address is a non-clickable placeholder, to replace before launch.
-- The `/booksellers` page is linked from the footer and includes an introduction, book overview, planned wider collection (more books, plush friends and accessories) and a stocking enquiry form. The five image boxes are deliberate placeholders; future products are presented as planned, with no release dates or ordering options. Bookshop name and location are validated with the other fields and stored in the existing contact message under the `Bookshops` topic; no newsletter subscription or email is sent.
+- The `/booksellers` page is linked from the footer and includes an introduction, book overview, planned wider collection (more books, plush friends and accessories) and a stocking enquiry form. The book and interior spread use approved artwork; the three future-product image boxes remain placeholders. Future products are presented as planned, with no release dates or ordering options. Bookshop name and location are validated with the other fields and stored in the existing contact message under the `Bookshops` topic; no newsletter subscription or email is sent.
 - Site access is private to the owner.
 
 ## Content and assets
@@ -68,7 +68,15 @@ Desktop, tablet and phone layouts were checked from 320px to 1920px, with no hor
 
 ## Before taking orders
 
-Confirm charges for separately shipped books and whether the next-book preorder is paid now before enabling payment, as requested by the owner. Reconnect Stripe, configure a separate sandbox and verify the complete payment/webhook flow described in `docs/stripe-checkout.md`. The current private Site must have an accessible Stripe webhook route before live activation. Confirm the final artwork, physical format, dispatch windows and Shipping+ terms before taking orders. Connect an email delivery service when launch messages are ready to send.
+Configure persistent storage and Stripe secrets on the selected production platform, then verify the complete sandbox payment/webhook flow described in `docs/stripe-checkout.md`. Production must have an accessible Stripe webhook route before live activation. The merchant account and next-book policy are approved: charge now, with no extra postage later. Confirm the final artwork, physical format, dispatch windows and Shipping+ terms before taking orders. Connect an email delivery service when launch messages are ready to send.
+
+## Vercel deployment
+
+`vercel.json` builds native Next.js with `npm run build:vercel` and publishes `.next`. The previous Vercel failures were caused by running the Vinext/Cloudflare build while Vercel expected Next.js's routes manifest. The existing `npm run dev` and `npm run build` commands still use Vinext for local preview and Sites.
+
+`lib/runtime-env.ts` reads Node server environment variables. Vite aliases it to `lib/runtime-env.cloudflare.ts` to retain the native D1 binding locally and on Sites. The Vercel project currently has no production database connection or Stripe secrets. Its pages can be deployed for review, but signup, enquiry and gift writes are unavailable and checkout cannot take payment until these services are connected. No data is stored in ephemeral function files.
+
+Run the native Next.js build in a clean checkout while the Vinext dev server is running: both frameworks generate `.next/types/routes.d.ts`, so sharing that generated directory causes conflicting route types. Keep build output out of Git. Vercel's clean Git build does not share the local preview's generated files.
 
 ## Activity update
 

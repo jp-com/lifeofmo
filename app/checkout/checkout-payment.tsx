@@ -14,21 +14,20 @@ export type PaymentProps = {
   onBusy: (busy: boolean) => void;
 };
 
-export default function CheckoutPayment(props: PaymentProps & { onConfig: (config: CheckoutConfig) => void }) {
+export default function CheckoutPayment(props: PaymentProps) {
   const [config, setConfig] = useState<CheckoutConfig | null>(null);
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
-  const { onConfig } = props;
   useEffect(() => {
     const abort = new AbortController();
     setError(false);
     fetch("/api/checkout/config", { signal: abort.signal }).then(async (response) => {
       if (!response.ok) throw new Error();
       const value: CheckoutConfig = await response.json();
-      setConfig(value); onConfig(value);
+      setConfig(value);
     }).catch(() => { if (!abort.signal.aborted) setError(true); });
     return () => abort.abort();
-  }, [attempt, onConfig]);
+  }, [attempt]);
   const placeholder = <>
     <div className={styles.paymentPlaceholder}>
       <CreditCard size={23} strokeWidth={1.5} aria-hidden="true" />

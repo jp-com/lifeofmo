@@ -14,6 +14,7 @@ export async function POST(request: Request) {
     if (!parsed.success) return Response.json({ eligible: false }, { status: 400, headers: giftHeaders });
     const { email } = parsed.data;
     const token = parsed.data.token ?? giftCookieToken(request);
+    if (!email && !token) return Response.json({ eligible: false }, { headers: giftHeaders });
     const db = getDb();
     const hasPaidOrder = async (address: string) => Boolean(await db.select({ id: checkoutOrders.id }).from(checkoutOrders).where(and(eq(checkoutOrders.email, address), eq(checkoutOrders.status, "paid"))).get());
     if (email) {

@@ -4,7 +4,6 @@ import { useRef, useState } from "react";
 import { useCheckoutGift } from "../../components/use-checkout-gift";
 import { BookOpen, Check, ChevronDown, Gift, Minus, Plus, Sparkles, Truck } from "lucide-react";
 import { formatPrice, orderTotals, shippingOptions, validQuantity, type ShippingMethod } from "../../lib/checkout";
-import type { CheckoutConfig } from "../../lib/checkout-contract";
 import { normalizeCheckoutPhone, phoneError } from "../../lib/checkout-phone";
 import CheckoutPayment from "./checkout-payment";
 import styles from "./checkout.module.css";
@@ -56,12 +55,10 @@ export default function CheckoutPreview() {
   const [summaryOpen, setSummaryOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [paymentBusy, setPaymentBusy] = useState(false);
-  const [paymentConfig, setPaymentConfig] = useState<CheckoutConfig | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const submitPayment = useRef<(() => void) | null>(null);
   const gift = useCheckoutGift(email, setEmail);
   const totals = orderTotals(bookQuantity, nextBookQuantity, shipping);
-  const totalLabel = nextBookQuantity > 0 && paymentConfig?.nextBookPostage !== "included" ? "Estimated total" : "Total";
 
   return (
     <div className={styles.layout}>
@@ -119,13 +116,13 @@ export default function CheckoutPreview() {
             <span>Add the next chapter to my order</span>
           </label>
           {nextBookQuantity > 0 ? <div className={styles.nextQuantity}><label htmlFor="next-book-quantity">Next-book quantity</label><Quantity id="next-book-quantity" label="Next book quantity" value={nextBookQuantity} onChange={setNextBookQuantity} /></div> : null}
-          <p className={styles.offerNote}>The next book may ship separately. Title and release date to be announced. {paymentConfig?.nextBookPostage === "included" ? "Your delivery charge includes any separate shipment." : "Postage for a separate shipment will be confirmed before payment."}</p>
+          <p className={styles.offerNote}>Paid in full at checkout. No extra delivery charge if it ships separately. Title and release date to be announced.</p>
         </section>
 
         <section className={styles.summary} aria-labelledby="summary-title">
           <h3 id="summary-title">Order summary</h3>
           <button type="button" className={styles.summaryToggle} aria-expanded={summaryOpen} aria-controls="checkout-summary-details" onClick={() => setSummaryOpen(!summaryOpen)}>
-            <span>Order summary<small>{totalLabel} · GBP</small></span>
+            <span>Order summary<small>Total · GBP</small></span>
             <strong aria-live="polite" aria-atomic="true">{formatPrice(totals.total)}</strong>
             <ChevronDown size={18} aria-hidden="true" />
           </button>
@@ -135,7 +132,7 @@ export default function CheckoutPreview() {
             {nextBookQuantity > 0 ? <div><dt>The next Life of Mo book <span>× {nextBookQuantity}</span></dt><dd>{formatPrice(totals.nextBooks)}</dd></div> : null}
             <div><dt>{shippingOptions[shipping].name} delivery</dt><dd>{formatPrice(totals.delivery)}</dd></div>
             {gift.eligible ? <div className={styles.giftLine}><dt><Gift size={15} aria-hidden="true" /><span>Colouring pencils <small>One set per qualifying first order · Can be combined with the book offer</small></span></dt><dd>FREE</dd></div> : null}
-            <div className={styles.total}><dt>{totalLabel} <span>GBP</span></dt><dd aria-live="polite" aria-atomic="true" data-testid="order-total">{formatPrice(totals.total)}</dd></div>
+            <div className={styles.total}><dt>Total <span>GBP</span></dt><dd aria-live="polite" aria-atomic="true" data-testid="order-total">{formatPrice(totals.total)}</dd></div>
           </dl>
           {totals.bookSavings > 0 ? <p className={styles.savings}><Check size={16} aria-hidden="true" />You’re saving {formatPrice(totals.bookSavings)} on Ella’s Night Flight.</p> : null}
           {totals.nextBookSavings > 0 ? <p className={styles.savings}><Check size={16} aria-hidden="true" />You’re saving {formatPrice(totals.nextBookSavings)} on the next book.</p> : null}
@@ -187,7 +184,7 @@ export default function CheckoutPreview() {
 
 
         </fieldset>
-        <CheckoutPayment cart={{ bookQuantity, nextBookQuantity, shipping }} formRef={formRef} submitRef={submitPayment} onBusy={setPaymentBusy} onConfig={setPaymentConfig} />
+        <CheckoutPayment cart={{ bookQuantity, nextBookQuantity, shipping }} formRef={formRef} submitRef={submitPayment} onBusy={setPaymentBusy} />
       </form>
     </div>
   );

@@ -6,7 +6,9 @@ export const metadata: Metadata = {
   description:
     "Pre-order Ella’s Night Flight for £20. A gentle woodland adventure about courage and friendship for ages 4–8, with three activities to enjoy together.",
   metadataBase: new URL(
-    "https://life-of-mo-woodland-stories.abuzzluck129.chatgpt.site",
+    process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "https://life-of-mo-woodland-stories.abuzzluck129.chatgpt.site",
   ),
   openGraph: {
     title: "Life of Mo — Stories that hug back",

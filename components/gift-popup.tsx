@@ -133,7 +133,7 @@ export function GiftPopup() {
 
   useEffect(() => {
     // A local design preview never clears a customer's saved claim or dismissal.
-    if (import.meta.env.DEV && new URLSearchParams(location.search).get("gift-preview") === "1") {
+    if (process.env.NODE_ENV === "development" && new URLSearchParams(location.search).get("gift-preview") === "1") {
       const frame = requestAnimationFrame(() => { setReached(true); setOpen(true); });
       return () => cancelAnimationFrame(frame);
     }

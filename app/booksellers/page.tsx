@@ -34,7 +34,15 @@ export default function BooksellersPage() {
             </p>
             <a className="button" href="#stocking-enquiry">Enquire about stocking</a>
           </div>
-          <ImagePlaceholder label="Book & woodland illustration" />
+          <figure className={styles.bookArt}>
+            <img
+              src="/assets/hero-collectors-edition-v2.webp"
+              alt="Ella’s Night Flight collector’s edition beside an illustrated woodland tree."
+              width={1536}
+              height={1024}
+              fetchPriority="high"
+            />
+          </figure>
         </section>
 
         <section className={`container ${styles.book}`} aria-labelledby="bookseller-book-title">
@@ -56,7 +64,15 @@ export default function BooksellersPage() {
               </div>
             </dl>
           </div>
-          <ImagePlaceholder label="Inside the book" />
+          <figure className={styles.bookArt}>
+            <img
+              src="/assets/spread-moonlit-hilltop.webp"
+              alt="An open spread of Ella’s Night Flight, with Mo and Ella overlooking the moonlit woodland."
+              width={1859}
+              height={846}
+              loading="lazy"
+            />
+          </figure>
         </section>
 
         <section className={`container ${styles.collection}`} aria-labelledby="collection-title">

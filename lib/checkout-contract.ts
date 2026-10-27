@@ -13,7 +13,7 @@ export type CheckoutSession = {
   version: number;
   cart: CheckoutCart;
 };
-export type CheckoutConfig = { enabled: boolean; publishableKey?: string; sandbox?: boolean; nextBookPostage: "pending" | "included" };
+export type CheckoutConfig = { enabled: boolean; publishableKey?: string; sandbox?: boolean; nextBookPostage: "included" };
 export const cartKey = (cart: CheckoutCart) => `${cart.bookQuantity}:${cart.nextBookQuantity}:${cart.shipping}`;
 export const sessionRequestSchema = z.object({ orderId: z.string().uuid(), cart: cartSchema }).strict();
 export const updateRequestSchema = sessionRequestSchema.extend({ version: z.number().int().nonnegative() });
