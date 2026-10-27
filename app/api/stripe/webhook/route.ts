@@ -1,4 +1,4 @@
-import { env } from "@/lib/runtime-env";
+import { env } from "#life-of-mo-runtime";
 import Stripe from "stripe";
 import { cartSchema } from "../../../../lib/checkout-contract";
 import { checkoutDb, type OrderRow, stripeClient } from "../../../../lib/checkout-server";

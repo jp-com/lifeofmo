@@ -46,7 +46,7 @@ export default defineConfig(async ({ command }) => {
 
   return {
     resolve: {
-      alias: { "@/lib/runtime-env": fileURLToPath(new URL("./lib/runtime-env.cloudflare.ts", import.meta.url)) },
+      alias: { "#life-of-mo-runtime": fileURLToPath(new URL("./lib/runtime-env.cloudflare.ts", import.meta.url)) },
     },
     server: {
       ...(managedLinux

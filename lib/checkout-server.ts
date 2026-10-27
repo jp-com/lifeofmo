@@ -1,4 +1,4 @@
-import { env } from "@/lib/runtime-env";
+import { env } from "#life-of-mo-runtime";
 import Stripe from "stripe";
 import { z } from "zod";
 import type { CheckoutConfig } from "./checkout-contract";

@@ -1,4 +1,4 @@
-import { env } from "@/lib/runtime-env";
+import { env } from "#life-of-mo-runtime";
 import { drizzle } from "drizzle-orm/d1";
 import * as schema from "./schema";
 
