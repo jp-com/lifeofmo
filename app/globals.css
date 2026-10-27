@@ -34,6 +34,11 @@
 * {
   box-sizing: border-box;
 }
+html,
+body,
+dialog {
+  overscroll-behavior-y: none;
+}
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 24px;
@@ -1842,5 +1847,33 @@ input:focus-visible {
   }
   .contact-success h2 {
     font-size: 30px;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-description,
+  .story-copy p,
+  .section-intro > p,
+  .activity-copy p,
+  .friend > p,
+  .modal p {
+    font-size: 16px;
+  }
+  .footer-newsletter > p,
+  .footer-links a,
+  .signup .form-note,
+  .contact-submit p,
+  .contact-field-error {
+    font-size: 14px;
+  }
+  .brand-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .footer-bottom button {
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 14px;
   }
 }

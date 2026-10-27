@@ -1,0 +1,1 @@
+ALTER TABLE `checkout_orders` ADD `phone` text;

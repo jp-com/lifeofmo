@@ -1,6 +1,8 @@
-// Design-preview prices, in pence. Live checkout must price the order on the server.
+// Shared display rules. Payment routes recalculate these prices on the server.
 export const BOOK_PRICE = 2000;
-export const NEXT_BOOK_PRICE = 1500;
+export const MULTI_BOOK_PRICE = 1800;
+export const MULTI_BOOK_MINIMUM = 2;
+export const NEXT_BOOK_PRICE = 1800;
 export const NEXT_BOOK_REGULAR_PRICE = 2000;
 export const shippingOptions = {
   standard: {
@@ -22,18 +24,24 @@ export function validQuantity(quantity: number, minimum = 1) {
 }
 
 export function orderTotals(bookQuantity: number, nextBookQuantity: number, shipping: ShippingMethod) {
-  if (!validQuantity(bookQuantity) || !validQuantity(nextBookQuantity, 0)) {
+  if (!validQuantity(bookQuantity) || !validQuantity(nextBookQuantity, 0) || !Object.hasOwn(shippingOptions, shipping)) {
     throw new Error("Choose a whole number of books.");
   }
-  const books = bookQuantity * BOOK_PRICE;
+  const bookUnitPrice = bookQuantity >= MULTI_BOOK_MINIMUM ? MULTI_BOOK_PRICE : BOOK_PRICE;
+  const books = bookQuantity * bookUnitPrice;
   const nextBooks = nextBookQuantity * NEXT_BOOK_PRICE;
   const delivery = shippingOptions[shipping].price;
+  const bookSavings = bookQuantity * (BOOK_PRICE - bookUnitPrice);
+  const nextBookSavings = nextBookQuantity * (NEXT_BOOK_REGULAR_PRICE - NEXT_BOOK_PRICE);
   return {
+    bookUnitPrice,
     books,
     nextBooks,
     delivery,
     total: books + nextBooks + delivery,
-    savings: nextBookQuantity * (NEXT_BOOK_REGULAR_PRICE - NEXT_BOOK_PRICE),
+    bookSavings,
+    nextBookSavings,
+    savings: bookSavings + nextBookSavings,
   };
 }
 

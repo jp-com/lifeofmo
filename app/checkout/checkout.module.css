@@ -15,6 +15,15 @@
 .productLine { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
 .productLine h2 { font-size: 22px; letter-spacing: -.5px; }
 .productLine p { margin-top: 3px; font-size: 16px; }
+.originalPrice { margin-left: 8px; font-size: 13px; color: #84725f; }
+.giftOffer { display: flex; align-items: flex-start; gap: 9px; margin-top: 12px; font-size: 13px; line-height: 1.5; color: #596047; }
+.giftOffer > svg { flex-shrink: 0; margin-top: 2px; }
+.giftTerms { margin-top: 2px; font-size: 12px; color: #756553; }
+.giftTerms summary { width: fit-content; padding: 5px 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.giftTerms summary:focus-visible { outline: 2px solid var(--brown); outline-offset: 2px; }
+.giftTerms ul { margin: 8px 0 0; padding-left: 16px; }
+.giftTerms li + li { margin-top: 6px; }
+.appliedDiscount { display: block; color: #596047; font-size: 12px; margin-top: 2px; }
 .quantityLabel { display: flex; align-items: center; gap: 10px; }
 .quantityLabel label { font-size: 12px; }
 .quantity { display: inline-flex; align-items: center; background: #fffcf6; border: 1px solid #c7bba6; border-radius: 6px; flex-shrink: 0; }
@@ -90,11 +99,27 @@
 .summary dl > div { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-top: 7px; }
 .summary dt > span { white-space: nowrap; color: #84725f; }
 .summary dd { margin: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.giftLine { color: #586342; }
+.giftLine dt { display: flex; align-items: center; gap: 8px; }
+.giftLine dt > span { color: inherit; white-space: normal; }
+.giftLine small { display: block; font-size: 11px; font-weight: 400; }
+.giftLine dd { font-size: 12px; font-weight: 600; }
+.giftCheckError { font-size: 12px; color: #8a3228; margin: 0; }
+.giftCheckError button { padding: 2px 4px; text-decoration: underline; }
 .summary .total { padding-top: 12px; margin-top: 12px; border-top: 1px solid var(--line); font-weight: 600; font-size: 18px; }
 .total dt > span { font-size: 11px; font-weight: 400; margin-left: 5px; }
 .total dd { font-size: 25px; line-height: 1.2; color: var(--ink); }
 .savings { display: flex; align-items: center; gap: 5px; font-size: 12px; margin-top: 13px; color: #586342; }
 .payment { margin-top: 20px; }
+.checkoutFields { border: 0; padding: 0; margin: 0; min-width: 0; }
+.paymentError { color: #8a3228; font-size: 13px; line-height: 1.5; margin: 12px 0; }
+.paymentError button, .retryPayment { text-decoration: underline; text-underline-offset: 3px; min-height: 44px; font-size: 13px; }
+.paymentActions { display: flex; flex-wrap: wrap; gap: 12px; }
+.sandboxNote { background: #eee9ed; padding: 8px 12px; border-radius: 5px; font-size: 13px; margin-bottom: 12px; }
+.receipt { width: min(560px, calc(100% - 40px)); margin: 60px auto; padding: 28px; background: #fffcf5; border: 1px solid var(--line); border-radius: 12px; }
+.receipt h1 { font-size: 32px; line-height: 1.2; }
+.receipt p { line-height: 1.6; margin-top: 14px; }
+.receipt a { display: inline-flex; margin-top: 20px; text-decoration: underline; text-underline-offset: 3px; }
 .paymentPlaceholder { display: flex; align-items: center; gap: 12px; background: #f5f1e9; border: 1px dashed #c9beab; border-radius: 6px; padding: 12px 14px; }
 .paymentPlaceholder > svg { flex-shrink: 0; color: #877965; }
 .paymentPlaceholder > svg:last-child { margin-left: auto; }
@@ -105,6 +130,8 @@
 .previewNote { text-align: center; font-size: 11px; line-height: 1.6; color: #81715f; margin-top: 12px; }
 .footer { display: flex; justify-content: space-between; align-items: center; gap: 20px; border-top: 1px solid var(--line); padding: 18px 0 24px; margin-top: 28px; font-size: 12px; }
 .footer > span { font-family: var(--serif); font-size: 16px; }
+.mobileOffer, .detailsToggle, .summaryToggle { display: none; }
+.summaryDetails { display: contents; }
 @media (max-width: 1100px) {
   .layout { gap: 36px; }
   .order { padding: 24px 22px; }
@@ -158,4 +185,65 @@
   .shippingPrice { font-size: 14px; }
   .paymentPlaceholder { gap: 9px; padding: 16px 10px; }
   .footer { flex-direction: column; gap: 12px; padding-bottom: 24px; }
+}
+
+/* Phone checkout keeps the product and offer visible, with detail on demand. */
+@media (max-width: 700px) {
+  .header { min-height: 68px; }
+  .layout { padding-top: 16px; gap: 16px; }
+  .product { display: grid; grid-template-columns: 96px minmax(0, 1fr); column-gap: 12px; }
+  .product > * { grid-column: 1 / -1; min-width: 0; }
+  .product > .eyebrow { display: none; }
+  .product h1 { grid-column: 2; grid-row: 1; align-self: center; font-size: 28px; line-height: 1.2; letter-spacing: -.8px; }
+  .art { grid-column: 1; grid-row: 1; width: 100%; margin: 0; }
+  .productLine { grid-row: 2; margin-top: 12px; gap: 12px; }
+  .productLine h2 { font-size: 18px; }
+  .quantityLabel { flex-direction: column; gap: 3px; }
+  .quantityLabel label { font-size: 14px; }
+  .quantity button { min-width: 44px; }
+  .quantity input { width: 36px; }
+  .mobileOffer { display: block; grid-row: 3; margin-top: 12px; font-size: 14px; line-height: 1.5; color: #596047; }
+  .detailsToggle { display: flex; grid-row: 4; justify-content: space-between; align-items: center; gap: 12px; width: 100%; min-height: 44px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; text-align: left; }
+  .detailsToggle[aria-expanded="true"] > svg, .summaryToggle[aria-expanded="true"] > svg { transform: rotate(180deg); }
+  .intro { grid-row: 5; font-size: 16px; }
+  .giftOffer { grid-row: 6; }
+  .included { grid-row: 7; font-size: 16px; }
+  .benefits { grid-row: 8; gap: 8px 16px; font-size: 14px; }
+  .product[data-details-open="false"] > :is(.intro, .giftOffer, .included, .benefits) { display: none; }
+  .giftOffer, .giftTerms { font-size: 14px; }
+  .giftTerms summary { min-height: 44px; padding-block: 10px; }
+  .nextBook { grid-row: 9; margin-top: 12px; padding: 14px; }
+  .offerProduct { grid-template-columns: 72px minmax(0, 1fr); gap: 12px; }
+  .offerEyebrow { font-size: 11px; }
+  .nextBook h2 { font-size: 20px; }
+  .offerPrice { gap: 6px; margin-top: 6px; }
+  .offerPrice > span { margin-left: 0; padding-inline: 6px; font-size: 12px; }
+  .addBook { margin-top: 12px; min-height: 48px; padding: 10px; font-size: 14px; }
+  .offerNote { font-size: 14px; line-height: 1.5; margin-top: 10px; }
+  .summary { grid-row: 10; padding-top: 0; margin-top: 12px; }
+  .summary > h3 { display: none; }
+  .summaryToggle { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 60px; padding: 10px 0; font-size: 16px; text-align: left; }
+  .summaryToggle small { display: block; font-size: 14px; font-weight: 400; }
+  .summaryToggle strong { margin-left: auto; font-family: var(--serif); font-size: 24px; white-space: nowrap; }
+  .summaryToggle > svg { flex-shrink: 0; }
+  .summaryDetails { display: none; }
+  .summaryDetails[data-open="true"] { display: block; padding-bottom: 8px; }
+  .summary dl { font-size: 16px; }
+  .order { padding: 20px 17px; }
+  .formHeading h2 { font-size: 26px; }
+  .formHeading > span, .detailsHeading > span { font-size: 14px; }
+  .detailsHeading { flex-wrap: wrap; gap: 4px; }
+  .contactPair { grid-template-columns: 1fr; gap: 10px; }
+  .field, .addressExtra summary, .shippingCopy > span, .dispatchNote,
+  .appliedDiscount, .giftLine small, .giftLine dd, .giftCheckError,
+  .total dt > span, .savings, .paymentError, .paymentPlaceholder strong,
+  .paymentPlaceholder p, .previewNote { font-size: 14px; }
+  .shippingPrice { font-size: 16px; }
+  .paymentPlaceholder p, .previewNote { color: #6f6153; }
+  .savings { align-items: flex-start; }
+  .savings svg { flex-shrink: 0; margin-top: 3px; }
+  .paymentError button, .retryPayment, .giftCheckError button { min-height: 44px; padding: 8px 6px; font-size: 14px; }
+  .footer { flex-direction: column; gap: 4px; margin-top: 24px; }
+  .footer a, .receipt a { display: inline-flex; align-items: center; min-height: 44px; padding-block: 8px; font-size: 16px; }
+  .receipt { font-size: 16px; }
 }

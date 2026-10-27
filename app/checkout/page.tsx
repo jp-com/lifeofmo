@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Brand } from "../../components/brand";
 import CheckoutPreview from "./checkout-preview";
+import { checkoutConfig } from "../../lib/checkout-server";
 import styles from "./checkout.module.css";
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export default function CheckoutPage() {
       <header className={styles.header}>
         <Link href="/" className={styles.back} aria-label="Back to the book"><ArrowLeft size={17} aria-hidden="true" /><span>Back to the book</span></Link>
         <Link href="/" aria-label="Life of Mo home" className={styles.logo}><Brand /></Link>
-        <span className={styles.previewBadge}>Checkout preview</span>
+        <span className={styles.previewBadge}>{checkoutConfig().enabled ? "Secure checkout" : "Checkout preview"}</span>
       </header>
       <main id="main"><CheckoutPreview /></main>
       <footer className={styles.footer}>

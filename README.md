@@ -5,12 +5,14 @@ Responsive launch website for Ella’s Night Flight, built with React, Vinext an
 ## Launch state
 
 - Book price: £20 GBP.
-- All pre-order links lead directly to `/checkout`, a local design preview. No payment is taken and no copy is reserved.
-- The checkout presents the £20 collector’s edition, independent quantities for the optional next book at £15 instead of £20, £5 Standard tracked delivery and £7.50 Shipping+ (initial test price). Shipping+ includes priority dispatch once available, faster delivery and prepaid UK change-of-mind returns.
-- Delivery is modelled as one charge per order, including separately dispatched books, pending confirmation. The preview uses UK delivery only. Dispatch dates and the next book’s title/release date are unconfirmed.
-- Stripe is not integrated yet; the payment area and disabled action explicitly identify the preview. Contact/address fields are not submitted or persisted. The connected Stripe app currently requires reauthentication.
+- All pre-order links lead directly to `/checkout`. Payments remain disabled until Stripe is connected and the next-book postage policy is decided.
+- The checkout presents the £20 collector’s edition, independent quantities for the optional next book at £18 instead of £20, £5 Standard tracked delivery and £7.50 Shipping+ (initial test price). Shipping+ includes priority dispatch once available, faster delivery and prepaid UK change-of-mind returns.
+- The “One to keep, one to give” offer automatically prices all Ella copies at £18 each for quantities of two or more; one copy remains £20. The optional next book stays £18 and does not count towards the threshold. The offer details and separate savings are shown beside the product and in the summary.
+- Delivery is UK-only. Postage for a separately dispatched next book is unresolved, and such baskets show an estimated total. Dispatch dates and the next book’s title/release date are unconfirmed.
+- Stripe Checkout Sessions and Payment Element integration is implemented behind a disabled activation gate, with server pricing, owned sessions, signed webhooks and persistent order records. The connected Stripe app still requires reauthentication, so no sandbox payment has been verified. See `docs/stripe-checkout.md` for configuration and verification.
 - Email signups persist in D1. This build does not send emails or connect an email marketing provider.
 - The `/contact` page validates enquiries and stores them in D1. It does not forward messages by email; connect an email delivery provider before offering inbox notifications. The visible `hello@lifeofmo.example` address is a non-clickable placeholder, to replace before launch.
+- The `/booksellers` page is linked from the footer and includes an introduction, book overview, planned wider collection (more books, plush friends and accessories) and a stocking enquiry form. The five image boxes are deliberate placeholders; future products are presented as planned, with no release dates or ordering options. Bookshop name and location are validated with the other fields and stored in the existing contact message under the `Bookshops` topic; no newsletter subscription or email is sent.
 - Site access is private to the owner.
 
 ## Content and assets
@@ -31,14 +33,19 @@ The favicon places the original black hedgehog on a white circle in both light a
 
 The checkout uses paired contact fields, an expandable optional address line and a compact UK destination label. Its order summary sits with the book on the right on desktop. A smaller book image and reduced section spacing bring the payment action higher while retaining 16px inputs; contact fields stack on narrow phones.
 
+At 700px and below, checkout uses a thumbnail beside the title, expandable book details and order breakdown, and a visible next-book offer. Supporting text is at least 14px and secondary help links have 44px tap areas. Desktop layout is unchanged. The order-status heading distinguishes missing orders, lookup errors, review and delayed confirmation from an active check.
+
 ## Main files
 
 - `app/page.tsx`: homepage, characters and FAQ.
 - `app/checkout/`: responsive checkout preview, with the form on the left and book on the right on desktop; product first on phones.
-- `lib/checkout.ts`: preview prices in integer pence and quantity/total calculations. These are not trusted server-side payment prices.
+- `lib/checkout.ts`: shared prices in integer pence, automatic multi-copy pricing and total calculations; payment routes recalculate these on the server.
+- `app/api/checkout/`, `app/api/stripe/webhook/`, `lib/checkout-*.ts` and `lib/stripe-pricing.ts`: Stripe session management, validation, payment confirmation and order storage.
 - `components/site-chrome.tsx`: shared navigation, footer, newsletter and dialogs.
 - `components/story-spreads.tsx`: two-spread carousel and motion preferences.
 - `app/contact/`: responsive contact page and form.
+- `app/booksellers/`: bookseller page, scoped styles and stocking enquiry form.
+- `app/api/booksellers/route.ts` and `lib/booksellers.ts`: validated, idempotent bookseller enquiry storage without a new database migration.
 - `app/api/contact/route.ts`: validated, idempotent enquiry storage.
 - `lib/contact.ts`: shared enquiry types and validation.
 - `app/globals.css`: visual design and responsive rules.
@@ -61,7 +68,7 @@ Desktop, tablet and phone layouts were checked from 320px to 1920px, with no hor
 
 ## Before taking orders
 
-Confirm the final cover and interior artwork, physical format, dispatch windows, supported delivery destinations, Shipping+ service terms, charges for separately shipped books and whether the next-book preorder is paid now. Add Stripe Checkout Sessions with the Payment Element, server-owned prices and quantity validation, signed webhooks with idempotent paid-order fulfilment, and reviewed shop policies before enabling payment. Load the checkout shell independently of Stripe and initialise Stripe once when integrating. Connect an email delivery service when launch messages are ready to send.
+Confirm charges for separately shipped books and whether the next-book preorder is paid now before enabling payment, as requested by the owner. Reconnect Stripe, configure a separate sandbox and verify the complete payment/webhook flow described in `docs/stripe-checkout.md`. The current private Site must have an accessible Stripe webhook route before live activation. Confirm the final artwork, physical format, dispatch windows and Shipping+ terms before taking orders. Connect an email delivery service when launch messages are ready to send.
 
 ## Activity update
 
@@ -82,3 +89,13 @@ The activities and friends headings and introductory text are centred at every s
 The hero availability/dispatch line and the cover, open-spread and activities preview captions are removed. The closing purchase card repeats the collector’s edition and £20 price above its direct checkout link, with artwork flush to the card’s right edge on desktop. Dispatch information remains in the FAQ.
 
 The story excerpt link, reader modal and hero’s “Look inside” link are removed.
+
+## Mo’s gift popup
+
+`components/gift-popup.tsx` opens a three-step gift card after the visitor reaches “Inside the book.” It reuses the approved Mo portrait and existing colouring illustration, with the site’s cream, brown, lavender, Lora and Nunito styling. A dismissal is remembered, with a small optional gift button for reopening; a saved claim suppresses future prompts. The popup never mounts on checkout. Native dialog focus containment, Escape, focus return, small-screen scrolling and reduced-motion behaviour are supported. For a repeatable local design preview, visit `/?gift-preview=1#activities-title` (development only).
+
+`POST /api/gifts/claim` validates and saves a unique normalised email in `gift_claims` (migration `0002_cool_lady_ursula.sql`). Newsletter consent is separate and unchecked; only an explicit opt-in inserts a subscriber. Duplicate claims reuse their original opaque claim link. A successful claim stores an HttpOnly, SameSite cookie and offers a copyable `/checkout?gift=<claim-id>` backup link; the URL contains no email address. Email sending is intentionally unconnected for now.
+
+`POST /api/gifts/eligibility` checks the checkout email and paid-order history, recovers a saved claim from its cookie/link, and also recognises existing subscribers. The checkout shows one free colouring pencil set for a qualifying first order and states that it combines with the book offer. Changing the email immediately clears stale eligibility. The claim token is removed from the checkout URL after recovery. Used claims and previous purchasers are ineligible. The Stripe webhook checks the confirmed email and redeems at most one set atomically with the paid-order record; the browser’s display is not fulfilment authority.
+
+The colouring artwork is illustrative; replace it with the actual pencil-set image once that product is chosen. Local API checks cover persistence, duplicate claims, token recovery, existing subscribers, separate marketing consent, invalid input, honeypot and cross-origin rejection. Browser checks cover reveal/claim/copy, email recovery, automatic gift display, changing/clearing email, keyboard dismissal, and 320px/390px phone plus laptop layout dimensions.

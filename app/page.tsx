@@ -4,6 +4,7 @@ import { Plus } from "lucide-react";
 import Link from "next/link";
 import { Modal, SiteHeader, SiteFooter } from "../components/site-chrome";
 import { StorySpreads } from "../components/story-spreads";
+import { GiftPopup } from "../components/gift-popup";
 
 const friends = [
   {
@@ -188,7 +189,7 @@ export default function Home() {
         >
           <div className="container">
             <div className="section-intro">
-              <h2 id="activities-title">Inside the book.</h2>
+              <h2 id="activities-title" tabIndex={-1}>Inside the book.</h2>
               <p>Three cozy activities to enjoy together.</p>
             </div>
             <div className="activities-grid">
@@ -325,6 +326,7 @@ export default function Home() {
         </section>
       </main>
       <SiteFooter />
+      <GiftPopup />
       {selectedFriend && (
         <Modal
           title={`Meet ${selectedFriend.name}`}

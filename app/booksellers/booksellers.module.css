@@ -1,0 +1,325 @@
+.main {
+  padding: 56px 0 96px;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.hero,
+.book,
+.enquiry {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: center;
+  gap: 72px;
+}
+
+.hero h1 {
+  max-width: 15ch;
+  margin-top: 20px;
+  font-size: clamp(42px, 4vw, 58px);
+  line-height: 1.12;
+  letter-spacing: -1.8px;
+  text-wrap: balance;
+}
+
+.intro {
+  max-width: 40ch;
+  margin-top: 24px;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.heroCopy > a {
+  margin-top: 28px;
+  min-height: 48px;
+  font-size: 15px;
+}
+
+.placeholder {
+  display: flex;
+  min-width: 0;
+  aspect-ratio: 3 / 2;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px;
+  border: 1px dashed #b5a58f;
+  border-radius: 8px;
+  background: #efe8da;
+  text-align: center;
+}
+
+.placeholder > span:first-child {
+  font-family: var(--serif);
+  font-size: 21px;
+  line-height: 1.4;
+}
+
+.placeholderNote {
+  color: #76614e;
+  font-size: 14px;
+}
+
+.book {
+  margin-top: 96px;
+}
+
+.main h2 {
+  font-size: var(--lower-heading-size);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.bookCopy h2,
+.enquiryIntro h2 {
+  margin-top: 14px;
+}
+
+.bookCopy > p:not(:first-child),
+.enquiryIntro > p:not(:first-child) {
+  margin-top: 20px;
+}
+
+.book > .placeholder {
+  background: #eeeaed;
+}
+
+.details {
+  margin: 28px 0 0;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.details > div {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.details > div:first-child {
+  border-top: 1px solid var(--line);
+}
+
+.details dt {
+  font-weight: 600;
+}
+
+.details dd {
+  margin: 0;
+}
+
+.collection {
+  margin-top: 80px;
+}
+
+.collectionIntro {
+  max-width: 620px;
+  margin: 0 auto 36px;
+  text-align: center;
+}
+
+.collectionIntro p {
+  margin-top: 16px;
+}
+
+.collectionGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.collectionItem {
+  min-width: 0;
+  text-align: center;
+}
+
+.collectionItem > .placeholder {
+  aspect-ratio: 4 / 3;
+}
+
+.collectionItem:first-child > .placeholder {
+  background: #eeeaed;
+}
+
+.collectionItem:nth-child(2) > .placeholder {
+  background: #e9ebdf;
+}
+
+.collectionItem h3 {
+  margin-top: 20px;
+}
+
+.collectionItem p {
+  max-width: 30ch;
+  margin: 10px auto 0;
+}
+
+.enquiry {
+  align-items: start;
+  margin-top: 80px;
+  scroll-margin-top: 36px;
+}
+
+.enquiryIntro {
+  max-width: 38ch;
+}
+
+.enquiryIntro .otherEnquiries {
+  margin-top: 28px;
+}
+
+.otherEnquiries a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.form {
+  min-width: 0;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.form :global(.contact-field) {
+  min-width: 0;
+}
+
+.form :global(.contact-field label) {
+  font-size: 16px;
+}
+
+.form :global(.contact-submit p) {
+  max-width: none;
+  font-size: 14px;
+}
+
+.success {
+  min-height: 360px;
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+@media (max-width: 1023px) {
+  .main {
+    padding: 40px 0 72px;
+  }
+
+  .hero,
+  .book,
+  .enquiry {
+    gap: 36px;
+  }
+
+  .hero h1 {
+    font-size: 42px;
+    letter-spacing: -1.3px;
+  }
+
+  .intro {
+    font-size: 16px;
+  }
+
+  .book {
+    margin-top: 72px;
+  }
+
+  .collection,
+  .enquiry {
+    margin-top: 64px;
+  }
+
+  .collectionGrid {
+    gap: 20px;
+  }
+
+  .formRow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 700px) {
+  .main {
+    padding: 32px 0 56px;
+  }
+
+  .hero,
+  .book,
+  .enquiry {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .hero h1 {
+    max-width: 17ch;
+    margin-top: 16px;
+    font-size: clamp(36px, 8.4vw, 44px);
+    letter-spacing: -1.2px;
+  }
+
+  .intro {
+    max-width: 42ch;
+    margin-top: 20px;
+  }
+
+  .heroCopy > a {
+    width: 100%;
+    margin-top: 24px;
+  }
+
+  .placeholder {
+    padding: 20px;
+  }
+
+  .placeholder > span:first-child {
+    font-size: 19px;
+  }
+
+  .book,
+  .collection,
+  .enquiry {
+    margin-top: 56px;
+  }
+
+  .collectionIntro {
+    margin-bottom: 28px;
+  }
+
+  .collectionGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .collectionItem > .placeholder {
+    aspect-ratio: 3 / 2;
+  }
+
+  .collectionItem h3 {
+    margin-top: 16px;
+  }
+
+  .details > div {
+    grid-template-columns: 90px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .enquiryIntro {
+    max-width: 42ch;
+  }
+
+  .success {
+    min-height: 300px;
+    padding: 24px;
+  }
+}

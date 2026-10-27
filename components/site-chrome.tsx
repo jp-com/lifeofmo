@@ -233,9 +233,7 @@ export function SiteFooter() {
             <div className="footer-links">
               <h2>Here to help</h2>
               <a href="/contact">Contact</a>
-              <button type="button" onClick={() => setModal("booksellers")}>
-                For booksellers
-              </button>
+              <a href="/booksellers">For booksellers</a>
               <a href="/#faq-title">Delivery &amp; pre-orders</a>
             </div>
           </nav>
@@ -252,23 +250,13 @@ export function SiteFooter() {
           </button>
         </div>
       </footer>
-      {modal === "booksellers" && (
-        <Modal title="For booksellers" onClose={() => setModal(null)}>
-          <h2>For booksellers.</h2>
-          <p>
-            Interested in stocking Life of Mo? Leave your email for news about
-            the first release and future bookseller information.
-          </p>
-          <Signup source="bookseller" />
-        </Modal>
-      )}
       {modal === "privacy" && (
         <Modal title="Your details and privacy" onClose={() => setModal(null)}>
           <h2>Your details and privacy.</h2>
           <p>
-            When you contact us, we store your name, email address, enquiry type
-            and message in the Life of Mo website database. These details are
-            used to handle your enquiry.
+            When you contact us, we store your name, email address, enquiry type,
+            message and any bookshop details you provide in the Life of Mo
+            website database. These details are used to handle your enquiry.
           </p>
           <p>
             We store your email address, signup time and signup source in the
@@ -279,6 +267,12 @@ export function SiteFooter() {
             payment details or ask for children’s personal information.
           </p>
           <p>No marketing emails are sent automatically by this website.</p>
+          <p>
+            When you claim Mo’s gift, we save your email and claim date to add
+            the gift to your first paid book order. A browser cookie remembers
+            your claim, and browser storage remembers if you dismiss the popup.
+            Book-news signup is optional and separate from claiming your gift.
+          </p>
         </Modal>
       )}
     </>
