@@ -8,7 +8,7 @@ import Stripe from "stripe";
 // Compile just the pure payment rules for Node, without a Worker or browser.
 const compiled = new URL("../work/checkout-tests/", import.meta.url);
 await mkdir(compiled, { recursive: true });
-for (const file of ["checkout", "checkout-contract", "checkout-phone", "stripe-pricing", "checkout-webhook"]) {
+for (const file of ["checkout-countries", "checkout", "checkout-contract", "checkout-phone", "stripe-pricing", "checkout-webhook"]) {
   const source = await readFile(new URL(`../lib/${file}.ts`, import.meta.url), "utf8");
   const output = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } }).outputText.replace(/from (["'])(\.\/[\w-]+)\1/g, 'from "$2.mjs"');
   await writeFile(new URL(`${file}.mjs`, compiled), output);
@@ -48,6 +48,27 @@ test("server rejects invalid quantities, unknown shipping and injected client am
   const valid = { bookQuantity: 1, nextBookQuantity: 0, shipping: "standard" };
   for (const change of [{ bookQuantity: 0 }, { bookQuantity: 1.5 }, { bookQuantity: "2" }, { bookQuantity: 999999 }, { nextBookQuantity: -1 }, { shipping: "free" }, { total: 1 }, { bookUnitPrice: 1 }]) assert.equal(cartSchema.safeParse({ ...valid, ...change }).success, false);
   assert.equal(cartSchema.safeParse({ ...valid, bookQuantity: 2 }).success, true);
+});
+test("international destinations keep the approved rates and must match the paid order", () => {
+  for (const country of ["GB", "US", "CA", "AU", "DE", "AE", "JP"]) {
+    for (const shipping of ["standard", "plus"]) {
+      const cart = cartSchema.parse({ bookQuantity: 2, nextBookQuantity: 0, shipping, country });
+      const priced = stripeCart(cart);
+      assert.equal(priced.totals.delivery, shipping === "standard" ? 500 : 750);
+      const session = paidSession();
+      session.collected_information.shipping_details.address.country = country;
+      session.shipping_cost.amount_total = priced.totals.delivery;
+      session.amount_total = priced.totals.total;
+      assert.equal(paymentMatchesOrder(session, cart, priced.totals.total), true);
+      session.collected_information.shipping_details.address.country = country === "GB" ? "US" : "GB";
+      assert.equal(paymentMatchesOrder(session, cart, priced.totals.total), false);
+    }
+  }
+  const base = { bookQuantity: 1, nextBookQuantity: 0, shipping: "standard" };
+  assert.equal(cartSchema.parse(base).country, "GB"); // Previously saved UK carts remain valid.
+  for (const country of ["ZZ", "XX", "", "United States", "us"]) assert.equal(cartSchema.safeParse({...base, country}).success, false);
+  assert.equal(normalizeCheckoutPhone("07700 900123", "US"), null);
+  assert.equal(normalizeCheckoutPhone("+1 202 555 0100", "US"), "+12025550100");
 });
 function paidSession() {
   return { payment_status: "paid", currency: "gbp", amount_total: 4100, shipping_cost: { amount_total: 500 },

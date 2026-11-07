@@ -1,4 +1,5 @@
 import type Stripe from "stripe";
+import { isDeliveryCountry } from "./checkout-countries";
 import { NEXT_BOOK_PRICE, orderTotals } from "./checkout";
 import type { CheckoutCart } from "./checkout-contract";
 
@@ -20,7 +21,8 @@ export function paymentMatchesOrder(session: Stripe.Checkout.Session, cart: Chec
     if (!wanted || item.quantity !== wanted.quantity || item.price?.unit_amount !== wanted.price || item.currency !== "gbp" || item.amount_total !== wanted.price * wanted.quantity) return false;
     expected.delete(sku);
   }
-  return expected.size === 0 && session.collected_information?.shipping_details?.address?.country === "GB" && Boolean(session.customer_details?.email) && Boolean(session.customer_details?.phone?.trim());
+  const country = session.collected_information?.shipping_details?.address?.country;
+  return expected.size === 0 && isDeliveryCountry(country) && country === (cart.country ?? "GB") && Boolean(session.customer_details?.email) && Boolean(session.customer_details?.phone?.trim());
 }
 
 type Notification = { eventId: string; eventType: string; orderId: string; status: "paid" | "processing" | "failed" | "expired" | "review"; email: string | null; phone: string | null; shipping: string | null; paymentIntent: string | null };

@@ -15,7 +15,7 @@ async function compile(source, target, replacements = []) {
 }
 await compile("../db/libsql-d1.ts", "adapter.mjs");
 await compile("../db/schema.ts", "schema.mjs");
-for (const file of ["gifts", "checkout", "checkout-contract", "checkout-webhook"]) await compile(`../lib/${file}.ts`, `${file}.mjs`);
+for (const file of ["checkout-countries", "gifts", "checkout", "checkout-contract", "checkout-webhook"]) await compile(`../lib/${file}.ts`, `${file}.mjs`);
 for (const route of ["claim", "eligibility"]) await compile(`../app/api/gifts/${route}/route.ts`, `${route}.mjs`, [
   ['"../../../../db"', '"./fixture.mjs"'], ['"../../../../db/schema"', '"./schema.mjs"'], ['"../../../../lib/gifts"', '"./gifts.mjs"'],
 ]);

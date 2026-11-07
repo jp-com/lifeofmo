@@ -38,25 +38,26 @@
 @media (max-width: 650px) {
   .dialog { width: calc(100vw - 32px); max-width: 410px; max-height: calc(100dvh - 32px); }
   .card { grid-template-columns: 1fr; min-height: 0; }
-  .art { height: 158px; padding: 0; }
-  .mo { width: 164px; height: 100%; }
+  .art { height: 160px; padding: 8px 48px; }
+  .mo { width: 180px; height: 100%; }
   .productArt { height: 190px; }
   .pencils img { object-fit: cover; }
   .artCaption { display: none; }
-  .content { padding: 25px 25px 26px; }
-  .content h2 { font-size: 29px; }
-  .description { margin-top: 12px; font-size: 15px; }
-  .primary { margin-top: 20px; }
+  .content { padding: 20px 22px 18px; }
+  .content h2 { font-size: clamp(25px, 7vw, 28px); line-height: 1.2; }
+  .description { margin-top: 10px; font-size: 15px; line-height: 1.45; }
+  .primary { margin-top: 16px; }
+  .secondary { margin-top: 2px; margin-bottom: -6px; }
   .form { margin-top: 15px; }
   .successMark { width: 34px; height: 34px; margin-bottom: 12px; }
   .launcher { right: 16px; bottom: 16px; }
 }
 @media (max-height: 680px) and (max-width: 650px) {
-  .art { height: 108px; }
-  .mo { width: 112px; }
+  .art { height: 136px; }
+  .mo { width: 164px; }
   .productArt { height: 120px; }
   .pencils img { object-fit: contain; }
-  .content { padding-block: 18px; }
+  .content { padding-block: 16px; }
 }
 @media (max-height: 520px) and (min-width: 651px) {
   .card { min-height: 0; }
@@ -71,4 +72,23 @@
 @media (prefers-reduced-motion: reduce) {
   .content { animation: none; }
   .mo, .pencils { transition: none; }
+}
+
+/* Phone composition: a centred invitation, followed by a compact claim form. */
+@media (max-width: 650px) {
+  .card[data-stage="invitation"] .art { height: clamp(160px, 27dvh, 200px); padding: 8px 48px; }
+  .card[data-stage="invitation"] .mo { width: 200px; height: 100%; }
+  .card[data-stage="invitation"] .content { padding: 22px 24px 12px; text-align: center; }
+  .card[data-stage="invitation"] h2 { font-size: 30px; line-height: 1.15; }
+  .card[data-stage="invitation"] .description { max-width: 250px; margin: 12px auto 0; text-wrap: balance; }
+  .card[data-stage="invitation"] .primary { margin-top: 20px; }
+  .card[data-stage="invitation"] .secondary { margin: 4px auto 0; }
+  .card[data-stage="reveal"] .productArt { height: clamp(112px, 20dvh, 154px); padding: 0; }
+  .card[data-stage="reveal"] .pencils img { object-fit: contain; }
+  .card[data-stage="reveal"] .content { padding: 18px 22px; }
+  .card[data-stage="reveal"] h2 { font-size: 27px; line-height: 1.16; }
+  .card[data-stage="reveal"] .form { margin-top: 12px; }
+  .card[data-stage="reveal"] .notice { margin-top: 10px; line-height: 1.45; }
+  .card[data-stage="reveal"] .terms { margin-top: 10px; }
+  .card[data-stage="reveal"] .error { margin-top: 10px; line-height: 1.4; }
 }

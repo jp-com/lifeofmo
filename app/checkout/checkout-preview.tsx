@@ -5,6 +5,7 @@ import { useCheckoutGift } from "../../components/use-checkout-gift";
 import { BookOpen, Check, ChevronDown, Gift, Minus, Plus, Sparkles, Truck } from "lucide-react";
 import { formatPrice, orderTotals, shippingOptions, validQuantity, type ShippingMethod } from "../../lib/checkout";
 import { normalizeCheckoutPhone, phoneError } from "../../lib/checkout-phone";
+import { deliveryCountries, type DeliveryCountry } from "../../lib/checkout-countries";
 import CheckoutPayment from "./checkout-payment";
 import styles from "./checkout.module.css";
 
@@ -47,9 +48,10 @@ function Quantity({ id, label, value, onChange }: {
   );
 }
 
-export default function CheckoutPreview() {
+export default function CheckoutPreview({ initialCountry = "GB" }: { initialCountry?: DeliveryCountry }) {
   const [bookQuantity, setBookQuantity] = useState(1);
   const [nextBookQuantity, setNextBookQuantity] = useState(0);
+  const [country, setCountry] = useState<DeliveryCountry>(initialCountry);
   const [shipping, setShipping] = useState<ShippingMethod>("standard");
   const [bookDetailsOpen, setBookDetailsOpen] = useState(false);
   const [summaryOpen, setSummaryOpen] = useState(false);
@@ -147,14 +149,20 @@ export default function CheckoutPreview() {
         <section className={styles.formSection} aria-labelledby="contact-title">
           <div className={styles.detailsHeading}>
             <h3 id="contact-title">Contact & delivery</h3>
-            <span>United Kingdom</span>
           </div>
           <div className={styles.fields}>
             <label className={styles.field}>Full name<input name="name" autoComplete="shipping name" maxLength={150} required /></label>
             <div className={styles.contactPair}>
               <label className={styles.field}>Email address<input type="email" name="email" autoComplete="email" placeholder="you@example.com" maxLength={254} value={email} onChange={(event) => setEmail(event.target.value)} required /></label>
-              <label className={styles.field}>Phone number<input type="tel" name="phone" autoComplete="tel" inputMode="tel" placeholder="07700 900123" maxLength={32} required onChange={(event) => event.currentTarget.setCustomValidity(!event.currentTarget.value || normalizeCheckoutPhone(event.currentTarget.value) ? "" : phoneError)} /></label>
+              <label className={styles.field}>Phone number<input type="tel" name="phone" autoComplete="tel" inputMode="tel" placeholder={country === "GB" ? "07700 900123" : "+1 202 555 0100"} maxLength={32} required onChange={(event) => event.currentTarget.setCustomValidity(!event.currentTarget.value || normalizeCheckoutPhone(event.currentTarget.value, country) ? "" : phoneError)} /></label>
             </div>
+            <label className={styles.field}>Country or region<select name="country" autoComplete="shipping country" value={country} onChange={(event) => {
+              const next = event.target.value as DeliveryCountry;
+              setCountry(next);
+              document.cookie = `lom_delivery_country=${next}; Path=/; Max-Age=31536000; SameSite=Lax${location.protocol === "https:" ? "; Secure" : ""}`;
+              const phone = formRef.current?.elements.namedItem("phone") as HTMLInputElement | null;
+              phone?.setCustomValidity(!phone.value || normalizeCheckoutPhone(phone.value, next) ? "" : phoneError);
+            }} required>{deliveryCountries.map(({ code, name }) => <option key={code} value={code}>{name}</option>)}</select></label>
             <label className={styles.field}>Address<input name="address" autoComplete="shipping address-line1" maxLength={200} required /></label>
             {gift.error ? <p className={styles.giftCheckError} role="status">We couldn’t check your gift. <button type="button" onClick={gift.retry}>Try again</button></p> : null}
             <details className={styles.addressExtra}>
@@ -163,9 +171,9 @@ export default function CheckoutPreview() {
             </details>
             <div className={styles.fieldPair}>
               <label className={styles.field}>Town or city<input name="city" autoComplete="shipping address-level2" maxLength={100} required /></label>
-              <label className={styles.field}>Postcode<input name="postcode" autoComplete="shipping postal-code" maxLength={12} required /></label>
+              <label className={styles.field}>{country === "GB" ? "Postcode" : "Postal / ZIP code (if applicable)"}<input name="postcode" autoComplete="shipping postal-code" maxLength={20} required={country === "GB"} /></label>
             </div>
-            <input type="hidden" name="country" value="United Kingdom" />
+            {country !== "GB" ? <label className={styles.field}>State / province{["US", "CA", "AU"].includes(country) ? "" : " (optional)"}<input name="state" autoComplete="shipping address-level1" maxLength={100} required={["US", "CA", "AU"].includes(country)} /></label> : null}
           </div>
         </section>
 
@@ -174,7 +182,7 @@ export default function CheckoutPreview() {
           {(Object.entries(shippingOptions) as [ShippingMethod, typeof shippingOptions[ShippingMethod]][]).map(([key, option]) => (
             <label key={key} className={`${styles.shippingOption} ${shipping === key ? styles.shippingSelected : ""}`}>
               <input type="radio" name="shipping" value={key} checked={shipping === key} onChange={() => setShipping(key)} />
-              <span className={styles.shippingCopy}><strong>{option.name}</strong><span>{option.description}</span></span>
+              <span className={styles.shippingCopy}><strong>{option.name}</strong><span>{key === "plus" && country !== "GB" ? "Priority dispatch and faster delivery" : option.description}</span></span>
               <strong className={styles.shippingPrice}>{formatPrice(option.price)}</strong>
             </label>
           ))}
@@ -184,7 +192,7 @@ export default function CheckoutPreview() {
 
 
         </fieldset>
-        <CheckoutPayment cart={{ bookQuantity, nextBookQuantity, shipping }} formRef={formRef} submitRef={submitPayment} onBusy={setPaymentBusy} />
+        <CheckoutPayment cart={{ bookQuantity, nextBookQuantity, shipping, country }} formRef={formRef} submitRef={submitPayment} onBusy={setPaymentBusy} />
       </form>
     </div>
   );

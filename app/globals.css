@@ -1647,12 +1647,12 @@ input:focus-visible {
 }
 @media (max-width: 700px) {
   .friend {
-    grid-template-rows: 188px auto 1fr;
+    grid-template-rows: auto auto 1fr;
   }
 }
 @media (max-width: 374px) {
   .friend {
-    grid-template-rows: 148px auto 1fr;
+    grid-template-rows: auto auto 1fr;
   }
 }
 

@@ -78,7 +78,7 @@ function GiftCard({ onClose, initialStage = "invitation" }: { onClose: (claimed:
         if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) onClose(stage === "claimed");
       }}>
       <button className={styles.close} type="button" aria-label="Close gift popup" onClick={() => onClose(stage === "claimed")}><X size={20} aria-hidden="true" /></button>
-      <div className={styles.card}>
+      <div className={styles.card} data-stage={stage}>
         <div className={`${styles.art} ${stage !== "invitation" ? styles.productArt : ""}`} aria-hidden="true">
           <img className={`${styles.mo} ${stage !== "invitation" ? styles.artHidden : ""}`} src="/assets/mo-gift-invitation.webp" alt="" width={584} height={730} />
           <picture className={`${styles.pencils} ${stage === "invitation" ? styles.artHidden : ""}`}>

@@ -3,8 +3,7 @@
 .header { min-height: 72px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; border-bottom: 1px solid var(--line); }
 .back { display: inline-flex; align-items: center; gap: 9px; width: fit-content; min-height: 44px; font-size: 14px; }
 .back:hover, .footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.logo { justify-self: center; }
-.previewBadge { justify-self: end; font-size: 12px; color: #6d6257; border: 1px solid var(--line); border-radius: 20px; padding: 5px 12px; }
+.logo { justify-self: center; grid-column: 2; }
 .layout { display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "order product"; align-items: start; gap: 48px; padding-top: 24px; }
 .product { grid-area: product; position: sticky; top: 16px; min-width: 0; padding-top: 0; }
 .eyebrow { text-transform: uppercase; letter-spacing: 1.5px; font-size: 11px; font-weight: 600; margin-bottom: 8px; }
@@ -77,9 +76,9 @@
 .addressExtra[open] .field { margin: 4px 0 2px; }
 .fields { display: grid; gap: 10px; }
 .field { display: block; color: var(--brown); font-size: 13px; line-height: 1.5; }
-.field input { display: block; width: 100%; height: 44px; border: 1px solid #d6cbb9; border-radius: 5px; background: #fffefa; color: var(--ink); padding: 10px 12px; margin-top: 5px; font-size: 16px; transition: border-color .15s; }
-.field input:hover { border-color: #a89880; }
-.field input:focus-visible { outline: 2px solid var(--brown); outline-offset: 1px; }
+.field input, .field select { display: block; width: 100%; height: 44px; border: 1px solid #d6cbb9; border-radius: 5px; background: #fffefa; color: var(--ink); padding: 10px 12px; margin-top: 5px; font-size: 16px; transition: border-color .15s; }
+.field input:hover, .field select:hover { border-color: #a89880; }
+.field input:focus-visible, .field select:focus-visible { outline: 2px solid var(--brown); outline-offset: 1px; }
 .field input::placeholder { color: #948675; }
 .fieldPair { display: grid; grid-template-columns: 1.35fr 1fr; gap: 12px; }
 .delivery { border: 0; padding: 0; margin: 20px 0 0; min-width: 0; }
@@ -143,7 +142,6 @@
   .header { gap: 14px; min-height: 86px; }
   .back span { display: none; }
   .back { width: 44px; }
-  .previewBadge { font-size: 10px; padding: 4px 8px; }
   .layout { grid-template-columns: minmax(0, 1fr); grid-template-areas: "product" "order"; padding-top: 30px; gap: 32px; }
   .product { position: static; padding-top: 0; }
   .product h1 { font-size: 37px; }
@@ -159,7 +157,6 @@
   .header { grid-template-columns: 44px 1fr auto; gap: 8px; }
   .logo { justify-self: start; }
   .logo :global(.brand-mark) { width: 107px; }
-  .previewBadge { font-size: 9px; padding: 4px 7px; }
   .product h1 { font-size: 32px; letter-spacing: -1px; }
   .eyebrow { font-size: 10px; }
   .intro { font-size: 15px; }

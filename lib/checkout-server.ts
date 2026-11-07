@@ -29,7 +29,7 @@ export function requireCheckout(request: Request) {
   const origin = request.headers.get("origin");
   if (origin !== new URL(request.url).origin || request.headers.get("sec-fetch-site") === "cross-site") throw new CheckoutError("Please use the Life of Mo checkout.", 403);
 }
-export async function parseCheckoutBody<T>(request: Request, schema: z.ZodType<T>): Promise<T> {
+export async function parseCheckoutBody<T>(request: Request, schema: z.ZodType<T, z.ZodTypeDef, unknown>): Promise<T> {
   const text = await request.text();
   if (text.length > 4096) throw new CheckoutError("Please check your order.");
   let body;

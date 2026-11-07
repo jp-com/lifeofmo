@@ -111,14 +111,14 @@ function PaymentFields({ cart, formRef, submitRef, onBusy, sandbox, session }: P
       try {
         const data = new FormData(formRef.current);
         const field = (key: string) => String(data.get(key) ?? "").trim();
-        if (!["name", "email", "phone", "address", "city", "postcode"].every((name) => field(name))) throw new Error("Please complete your contact and delivery details.");
-        const phoneNumber = normalizeCheckoutPhone(field("phone"));
+        if (!["name", "email", "phone", "address", "city", "country"].every((name) => field(name))) throw new Error("Please complete your contact and delivery details.");
+        const phoneNumber = normalizeCheckoutPhone(field("phone"), field("country"));
         if (!phoneNumber) throw new Error(phoneError);
         await sync(true);
         const returnUrl = `${location.origin}/checkout/complete?order=${session.orderId}`;
         const result = await checkout.checkout.confirm({
           phoneNumber,
-          email: field("email"), shippingAddress: { name: field("name"), address: { line1: field("address"), line2: field("address2"), city: field("city"), postal_code: field("postcode"), country: "GB" } },
+          email: field("email"), shippingAddress: { name: field("name"), address: { line1: field("address"), line2: field("address2"), city: field("city"), postal_code: field("postcode"), state: field("state"), country: field("country") } },
           returnUrl, redirect: "if_required",
         });
         if (result.type === "error") throw new Error(result.error.message);

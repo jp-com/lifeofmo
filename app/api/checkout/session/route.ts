@@ -1,3 +1,4 @@
+import { deliveryCountryCodes } from "../../../../lib/checkout-countries";
 import { cartSchema, sessionRequestSchema, updateRequestSchema } from "../../../../lib/checkout-contract";
 import { CheckoutError, checkoutConfig, checkoutDb, checkoutFailure, checkoutHeaders, hash, ownedOrder, ownerHash, parseCheckoutBody, requireCheckout, stripeClient } from "../../../../lib/checkout-server";
 import { stripeCart } from "../../../../lib/stripe-pricing";
@@ -20,7 +21,7 @@ export async function POST(request: Request) {
       const { line_items, shipping_options } = stripeCart(savedCart);
       session = await stripe.checkout.sessions.create({
         mode: "payment", ui_mode: "elements", currency: "gbp",
-        line_items, shipping_options, shipping_address_collection: { allowed_countries: ["GB"] },
+        line_items, shipping_options, shipping_address_collection: { allowed_countries: [...deliveryCountryCodes] },
         phone_number_collection: { enabled: true },
         return_url: `${new URL(request.url).origin}/checkout/complete?order=${orderId}`,
         client_reference_id: orderId, metadata: { order_id: orderId },
