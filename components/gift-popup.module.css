@@ -3,15 +3,14 @@
 .close { position: absolute; z-index: 2; right: 8px; top: 8px; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; }
 .close:hover { background: #eae1d2; }
 .card { display: grid; grid-template-columns: 43% 57%; min-height: 484px; }
-.art { position: relative; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 38px 12px 48px 20px; background: #f2ecdf; overflow: hidden; }
-.artHalo { position: absolute; width: 238px; height: 238px; border-radius: 50%; background: #dfd7e2; opacity: .7; top: 50%; left: 50%; transform: translate(-50%, -51%); }
-.mo { width: 292px; max-width: 100%; position: relative; transition: opacity 180ms ease; }
-.parcel { position: absolute; bottom: 66px; right: 22px; width: 91px; height: 88px; background: #e8dbc0; border: 1px solid #b7a17a; border-radius: 6px; display: grid; place-items: center; color: #77533c; transform: rotate(8deg); box-shadow: 0 5px 12px #51321f0a; transition: opacity 180ms ease; }
-.pencils { position: absolute; width: 268px; max-width: 90%; transition: opacity 180ms ease; }
+.art { position: relative; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 38px 12px 48px 20px; background: #dfd7e2; overflow: hidden; }
+.mo { width: 292px; max-width: 100%; position: relative; object-fit: contain; transition: opacity 180ms ease; }
+.productArt { padding: 0; }
+.pencils { position: absolute; inset: 0; width: 100%; height: 100%; transition: opacity 180ms ease; }
+.pencils img { width: 100%; height: 100%; object-fit: contain; }
 .artHidden { opacity: 0; pointer-events: none; }
 .artCaption { position: absolute; left: 20px; right: 20px; bottom: 29px; font: 500 12px/1.5 var(--serif); text-align: center; color: #75644f; }
 .content { align-self: center; padding: 44px 34px 32px; animation: appear 180ms ease-out; }
-.eyebrow { text-transform: uppercase; font-size: 10px; letter-spacing: 1.5px; color: #78674f; font-weight: 600; margin-bottom: 13px; }
 .content h2 { font-size: 32px; line-height: 1.18; letter-spacing: -.9px; }
 .content h2:focus { outline: none; }
 .description { font-size: 16px; line-height: 1.55; margin-top: 17px; }
@@ -23,9 +22,10 @@
 .form > input::placeholder { color: #938572; }
 .form > input:focus-visible { outline: 2px solid var(--brown); outline-offset: 2px; }
 .form .primary { margin-top: 15px; }
-.consent { display: flex; align-items: flex-start; gap: 8px; margin-top: 13px; font-size: 12px; line-height: 1.5; cursor: pointer; }
-.consent input { margin: 2px 0 0; width: 17px; height: 17px; accent-color: var(--brown); flex-shrink: 0; }
-.optional { color: #7e6c59; }
+.notice { margin-top: 13px; font-size: 12px; line-height: 1.6; color: #786751; }
+.notice button { padding: 0; color: var(--brown); text-decoration: underline; text-underline-offset: 3px; }
+.notice button:focus-visible { outline: 2px solid var(--brown); outline-offset: 3px; }
+.noticeDetails { margin-top: 10px; padding: 12px; border-radius: 6px; background: #eee5d5; font-size: 12px; line-height: 1.6; }
 .terms { margin-top: 13px; font-size: 11px; line-height: 1.5; color: #786751; }
 .error { font-size: 13px; color: #8a3228; margin-top: 12px; }
 .successMark { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: #e5e8da; color: #586340; margin: 1px 0 16px; }
@@ -39,15 +39,12 @@
   .dialog { width: calc(100vw - 32px); max-width: 410px; max-height: calc(100dvh - 32px); }
   .card { grid-template-columns: 1fr; min-height: 0; }
   .art { height: 158px; padding: 0; }
-  .artHalo { width: 137px; height: 137px; }
-  .mo { width: 164px; }
-  .parcel { width: 56px; height: 53px; bottom: 12px; right: calc(50% - 95px); }
-  .parcel svg { width: 42px; height: 42px; }
-  .pencils { width: 144px; }
+  .mo { width: 164px; height: 100%; }
+  .productArt { height: 190px; }
+  .pencils img { object-fit: cover; }
   .artCaption { display: none; }
   .content { padding: 25px 25px 26px; }
   .content h2 { font-size: 29px; }
-  .eyebrow { margin-bottom: 10px; font-size: 9px; }
   .description { margin-top: 12px; font-size: 15px; }
   .primary { margin-top: 20px; }
   .form { margin-top: 15px; }
@@ -57,13 +54,21 @@
 @media (max-height: 680px) and (max-width: 650px) {
   .art { height: 108px; }
   .mo { width: 112px; }
-  .pencils { width: 100px; }
-  .artHalo { width: 95px; height: 95px; }
-  .parcel { width: 43px; height: 42px; right: calc(50% - 72px); bottom: 5px; }
-  .parcel svg { width: 33px; height: 33px; }
+  .productArt { height: 120px; }
+  .pencils img { object-fit: contain; }
   .content { padding-block: 18px; }
+}
+@media (max-height: 520px) and (min-width: 651px) {
+  .card { min-height: 0; }
+  .art { position: sticky; top: 0; height: calc(100dvh - 50px); padding: 16px 12px 32px; }
+  .productArt { padding: 0; }
+  .mo { max-height: 100%; }
+  .artCaption { bottom: 12px; }
+  .content { padding: 28px 26px 22px; }
+  .content h2 { font-size: 28px; }
+  .description { font-size: 14px; margin-top: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .content { animation: none; }
-  .mo, .pencils, .parcel { transition: none; }
+  .mo, .pencils { transition: none; }
 }

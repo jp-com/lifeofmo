@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "../../components/site-chrome";
 import { BooksellerForm } from "./bookseller-form";
+import { StorySpreads } from "../../components/story-spreads";
 import styles from "./booksellers.module.css";
 
 export const metadata: Metadata = {
@@ -64,15 +65,7 @@ export default function BooksellersPage() {
               </div>
             </dl>
           </div>
-          <figure className={styles.bookArt}>
-            <img
-              src="/assets/spread-moonlit-hilltop.webp"
-              alt="An open spread of Ella’s Night Flight, with Mo and Ella overlooking the moonlit woodland."
-              width={1859}
-              height={846}
-              loading="lazy"
-            />
-          </figure>
+          <StorySpreads />
         </section>
 
         <section className={`container ${styles.collection}`} aria-labelledby="collection-title">
