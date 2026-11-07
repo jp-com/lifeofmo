@@ -750,6 +750,9 @@ input:focus-visible {
   line-height: 1.6;
   padding: 0 30px 22px 0;
 }
+.faq-item > div > p:not(:last-child) {
+  padding-bottom: 0;
+}
 .launch-section {
   padding: 40px 0 48px;
 }

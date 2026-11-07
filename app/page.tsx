@@ -42,20 +42,32 @@ const friends = [
 ];
 const faq = [
   [
-    "Who is the book for?",
-    "Ella’s Night Flight is for children aged 4–8, with shared reading at its heart. It is a story for children and grown-ups to enjoy and talk about together.",
+    "What age is the book for?",
+    "Ella’s Night Flight is designed for children aged 4–8, to read and enjoy with a grown-up. Younger children may need a little help with the crossword.",
   ],
   [
     "What’s included in the collector’s edition?",
-    "The collector’s edition includes Ella’s Night Flight, plus maze, crossword and colouring activities to enjoy together.",
+    "This limited collector’s edition is a hardcover with deckled page edges and metallic accents. Inside, you’ll find Ella’s illustrated woodland adventure, plus a maze, crossword and colouring page.",
+  ],
+  [
+    "How do I claim my free colouring pencils?",
+    "Claim your gift through the website, then use the same email address at checkout. Your eight colouring pencils, in a book-style wallet, will ship with your book.",
   ],
   [
     "When will my pre-order arrive?",
-    "The dispatch date is still to be confirmed. Delivery timing will depend on your destination.",
+    "Our dispatch date is still being confirmed. We’ll email you when we have an estimated dispatch window and keep you informed if it changes. Delivery time after dispatch will depend on your destination.",
   ],
   [
-    "Where will you deliver?",
-    "Delivery destinations and shipping costs are still to be confirmed. The £20 book price excludes delivery.",
+    "Where do you deliver, and what does shipping cost?",
+    "We offer worldwide delivery, subject to availability for your address. Shipping is charged separately from the £20 book, with available options and costs shown at checkout.\n\nAny applicable import duties and taxes are collected at checkout, so there are no additional import charges to pay on delivery.",
+  ],
+  [
+    "What is Shipping+?",
+    "Shipping+ gives your order priority dispatch once the books are ready. Delivery dates are estimates and cannot be guaranteed.",
+  ],
+  [
+    "How do payment and cancellations work?",
+    "Payment is taken in full when you pre-order, including your selected shipping option and any applicable duties and taxes shown at checkout.\n\nYou can cancel before dispatch for a full refund of everything paid to us. Contact us with your order number. If your order has already been dispatched, please see our returns policy.",
   ],
 ];
 const activities = [
@@ -287,7 +299,7 @@ export default function Home() {
                     </button>
                   </h3>
                   <div id={`faq-${i}`} hidden={openFaq !== i}>
-                    <p>{a}</p>
+                    {a.split("\n\n").map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                   </div>
                 </div>
               ))}
