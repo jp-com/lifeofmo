@@ -16,11 +16,14 @@
     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate",
-    "test:checkout": "node --test tests/checkout.test.mjs"
+    "test:checkout": "node --test tests/checkout.test.mjs",
+    "db:migrate:turso": "node scripts/migrate-turso.mjs",
+    "test:database": "node --test tests/database.test.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
     "@hookform/resolvers": "^5.7.1",
+    "@libsql/client": "^0.18.0",
     "@shadcn/react": "^0.3.0",
     "@stripe/react-stripe-js": "7.0.0",
     "@stripe/stripe-js": "10.1.0",
