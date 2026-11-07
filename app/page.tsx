@@ -63,7 +63,7 @@ const faq = [
   ],
   [
     "What is Shipping+?",
-    "Shipping+ gives your order priority dispatch once the books are ready. Delivery dates are estimates and cannot be guaranteed.",
+    "Shipping+ gives your order priority dispatch once the books are ready. For UK orders, it also includes prepaid return postage if you change your mind. Delivery dates are estimates and cannot be guaranteed.",
   ],
   [
     "How do payment and cancellations work?",
