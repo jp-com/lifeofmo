@@ -5,6 +5,7 @@ import { StorySpreads } from "../../components/story-spreads";
 import styles from "./booksellers.module.css";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/booksellers" },
   title: "For booksellers — Life of Mo",
   description:
     "Discover Ella’s Night Flight, the first Life of Mo story for ages 4–8, and enquire about stocking the collector’s edition in your bookshop.",

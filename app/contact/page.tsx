@@ -3,6 +3,7 @@ import { SiteHeader, SiteFooter } from "../../components/site-chrome";
 import { ContactForm } from "./contact-form";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/contact" },
   title: "Say hello — Life of Mo",
   description: "Get in touch with Life of Mo about the book, bookshop enquiries, press or collaborations.",
 };
