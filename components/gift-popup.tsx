@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
-import { Check, Copy, Gift, X } from "lucide-react";
+import Link from "next/link";
+import { Check, Gift, X } from "lucide-react";
 import styles from "./gift-popup.module.css";
 
 type Stage = "invitation" | "reveal" | "claimed";
@@ -14,9 +15,6 @@ function GiftCard({ onClose, initialStage = "invitation" }: { onClose: (claimed:
   const [stage, setStage] = useState<Stage>(initialStage);
   const [status, setStatus] = useState<"idle" | "saving" | "error">("idle");
   const [error, setError] = useState("");
-  const [claimPath, setClaimPath] = useState("");
-  const [copied, setCopied] = useState(false);
-  const [copyFailed, setCopyFailed] = useState(false);
   const [notice, setNotice] = useState<"terms" | "privacy" | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -56,17 +54,10 @@ function GiftCard({ onClose, initialStage = "invitation" }: { onClose: (claimed:
       const result = await response.json() as { error?: string; claimPath?: string };
       if (!response.ok || !result.claimPath) throw new Error(result.error || "We couldn’t save your gift. Please try again.");
       remember("claimed");
-      if (mounted.current) { setClaimPath(result.claimPath); setStage("claimed"); setStatus("idle"); }
+      if (mounted.current) { setStage("claimed"); setStatus("idle"); }
     } catch (err) {
       if (mounted.current) { setError(err instanceof Error ? err.message : "Please try again."); setStatus("error"); }
     } finally { submitting.current = false; }
-  }
-
-  async function copyLink() {
-    try {
-      await navigator.clipboard.writeText(new URL(claimPath, location.origin).href);
-      setCopied(true);
-    } catch { setCopyFailed(true); }
   }
 
   return (
@@ -118,9 +109,7 @@ function GiftCard({ onClose, initialStage = "invitation" }: { onClose: (claimed:
             <h2 id="mo-gift-title" ref={titleRef} tabIndex={-1}>Your gift is saved.</h2>
             <p id="mo-gift-description" className={styles.description}>We’ll include your free colouring pencils with your first book order. Just use the same email at checkout.</p>
             <button className={`button ${styles.primary}`} type="button" onClick={() => onClose(true)}>Explore the book</button>
-            <button className={styles.copyLink} type="button" onClick={copyLink} disabled={!claimPath}><Copy size={14} aria-hidden="true" />{copied ? "Gift link copied" : "Copy my gift link"}</button>
-            <span className="visually-hidden" role="status">{copied ? "Your gift link has been copied." : ""}</span>
-            {copyFailed ? <label className={styles.backupLabel}>Your gift link<input readOnly value={typeof window === "undefined" ? claimPath : new URL(claimPath, location.origin).href} onFocus={(event) => event.currentTarget.select()} /></label> : null}
+            <Link className={styles.copyLink} href="/checkout">Go to checkout</Link>
           </>}
         </div>
       </div>

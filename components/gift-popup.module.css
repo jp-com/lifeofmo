@@ -40,8 +40,9 @@
   .card { grid-template-columns: 1fr; min-height: 0; }
   .art { height: 160px; padding: 8px 48px; }
   .mo { width: 180px; height: 100%; }
-  .productArt { height: 190px; }
-  .pencils img { object-fit: cover; }
+  .card .productArt { width: 100%; height: auto; aspect-ratio: 2 / 1; padding: 0; }
+  .productArt .mo { display: none; }
+  .pencils img { display: block; object-fit: contain; }
   .artCaption { display: none; }
   .content { padding: 20px 22px 18px; }
   .content h2 { font-size: clamp(25px, 7vw, 28px); line-height: 1.2; }
@@ -55,7 +56,6 @@
 @media (max-height: 680px) and (max-width: 650px) {
   .art { height: 136px; }
   .mo { width: 164px; }
-  .productArt { height: 120px; }
   .pencils img { object-fit: contain; }
   .content { padding-block: 16px; }
 }
@@ -83,12 +83,12 @@
   .card[data-stage="invitation"] .description { max-width: 250px; margin: 12px auto 0; text-wrap: balance; }
   .card[data-stage="invitation"] .primary { margin-top: 20px; }
   .card[data-stage="invitation"] .secondary { margin: 4px auto 0; }
-  .card[data-stage="reveal"] .productArt { height: clamp(112px, 20dvh, 154px); padding: 0; }
-  .card[data-stage="reveal"] .pencils img { object-fit: contain; }
-  .card[data-stage="reveal"] .content { padding: 18px 22px; }
+  .card[data-stage="reveal"] .content { padding: 16px 20px; }
   .card[data-stage="reveal"] h2 { font-size: 27px; line-height: 1.16; }
-  .card[data-stage="reveal"] .form { margin-top: 12px; }
+  .card[data-stage="reveal"] .description { margin-top: 8px; line-height: 1.4; }
+  .card[data-stage="reveal"] .form { margin-top: 14px; }
+  .card[data-stage="reveal"] .form .primary { margin-top: 12px; }
   .card[data-stage="reveal"] .notice { margin-top: 10px; line-height: 1.45; }
-  .card[data-stage="reveal"] .terms { margin-top: 10px; }
+  .card[data-stage="reveal"] .terms { margin-top: 8px; line-height: 1.4; }
   .card[data-stage="reveal"] .error { margin-top: 10px; line-height: 1.4; }
 }
