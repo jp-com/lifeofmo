@@ -168,7 +168,7 @@ export function SiteHeader() {
             <Brand />
           </a>
           <nav className="desktop-nav" aria-label="Main navigation">
-            <a href="/#the-book">The book</a>
+            <a href="/books/ellas-night-flight">The book</a>
             <a href="/#friends">Meet the friends</a>
             <a href="/#our-story">Our story</a>
           </nav>
@@ -192,7 +192,7 @@ export function SiteHeader() {
             id="mobile-nav"
             aria-label="Mobile navigation"
           >
-            <a href="/#the-book" onClick={closeMenu}>
+            <a href="/books/ellas-night-flight" onClick={closeMenu}>
               The book
             </a>
             <a href="/#friends" onClick={closeMenu}>
@@ -226,7 +226,7 @@ export function SiteFooter() {
           <nav className="footer-navigation" aria-label="Footer navigation">
             <div className="footer-links">
               <h2>Explore</h2>
-              <a href="/#the-book">The book</a>
+              <a href="/books/ellas-night-flight">The book</a>
               <a href="/#friends">Meet the friends</a>
               <a href="/#our-story">Our story</a>
             </div>

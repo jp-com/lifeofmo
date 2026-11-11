@@ -11,15 +11,6 @@ export const metadata: Metadata = {
     "Discover Ella’s Night Flight, the first Life of Mo story for ages 4–8, and enquire about stocking the collector’s edition in your bookshop.",
 };
 
-function ImagePlaceholder({ label }: { label: string }) {
-  return (
-    <div className={styles.placeholder} role="img" aria-label={`${label} — image placeholder`}>
-      <span>{label}</span>
-      <span className={styles.placeholderNote}>Image placeholder</span>
-    </div>
-  );
-}
-
 export default function BooksellersPage() {
   return (
     <>
@@ -80,17 +71,17 @@ export default function BooksellersPage() {
           </div>
           <div className={styles.collectionGrid}>
             <article className={styles.collectionItem}>
-              <ImagePlaceholder label="Future book covers" />
+              <div className={styles.collectionArt}><img src="/assets/future-woodland-books.png" alt="An open woodland storybook with a leafy branch growing from its pages" width={1280} height={1280} loading="lazy" /></div>
               <h3>More woodland stories</h3>
               <p>Further adventures with Mo and his friends.</p>
             </article>
             <article className={styles.collectionItem}>
-              <ImagePlaceholder label="Plush collection" />
+              <div className={styles.collectionArt}><img src="/assets/mo-plush-collection.png" alt="Mo as a soft hedgehog plush with a rust-coloured scarf" width={1280} height={1280} loading="lazy" /></div>
               <h3>Plush friends</h3>
               <p>Soft companions inspired by the woodland friends.</p>
             </article>
             <article className={styles.collectionItem}>
-              <ImagePlaceholder label="Accessories collection" />
+              <div className={styles.collectionArt}><img src="/assets/woodland-accessories.png" alt="Woodland colouring pencils and an oak-leaf gift tag" width={1280} height={1280} loading="lazy" /></div>
               <h3>Woodland accessories</h3>
               <p>A little of Mo’s world for everyday adventures.</p>
             </article>
@@ -103,7 +94,6 @@ export default function BooksellersPage() {
           aria-labelledby="enquiry-title"
         >
           <div className={styles.enquiryIntro}>
-            <p className="book-label">Let’s start a conversation</p>
             <h2 id="enquiry-title">Enquire about stocking.</h2>
             <p>
               Tell us a little about your bookshop and what you have in mind.

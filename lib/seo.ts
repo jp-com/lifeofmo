@@ -2,9 +2,9 @@ export const siteUrl = "https://lifeofmo.com";
 export const bookStructuredData = {
   "@context": "https://schema.org",
   "@type": ["Book", "Product"],
-  "@id": `${siteUrl}/#ellas-night-flight`,
+  "@id": `${siteUrl}/books/ellas-night-flight#book`,
   name: "Ella’s Night Flight — Collector’s edition",
-  url: `${siteUrl}/`,
+  url: `${siteUrl}/books/ellas-night-flight`,
   image: [`${siteUrl}/assets/hero-collectors-edition-v2.webp`],
   description: "A hardcover woodland adventure about courage and friendship for ages 4–8, with deckled page edges, metallic accents, a maze, crossword and colouring page.",
   author: { "@type": "Person", name: "Junya Lim" },
@@ -15,7 +15,7 @@ export const bookStructuredData = {
   sku: "ella-collectors-edition",
   offers: {
     "@type": "Offer",
-    url: `${siteUrl}/`,
+    url: `${siteUrl}/books/ellas-night-flight`,
     price: "20.00",
     priceCurrency: "GBP",
     availability: "https://schema.org/PreOrder",
